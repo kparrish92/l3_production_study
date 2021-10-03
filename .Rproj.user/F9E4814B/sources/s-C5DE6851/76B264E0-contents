@@ -1,0 +1,897 @@
+# Simulating response accuracy data at the item-level using a logistic multilevel model ####
+# PsyPag MSCP-Section Simulation Summer School
+# S Chadwick
+# 11/06/2021
+
+# Libraries
+library(psych)
+library(ggplot2)
+library(lme4)
+library(MASS)
+
+
+# 1. A basic model ####
+# Assuming a very basic model of responses to questions (q) made by
+# pupils (p) from schools (s):
+# Response_psq ~ Bernoulli(theta_psq)
+# theta_psq = P(Response_psq = 1)
+# logit(theta_psq) = b0
+# b0 = logit(0.5)
+
+# Design:
+# 30 Questions
+# 25 Pupils (from each school)
+# 10 Schools
+
+# 1.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+npupilstotal = npupils*nschools # to give each pupil a unique number
+
+# 1.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestions),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestions),
+                   "question" = rep(1:nquestions,
+                                    times = npupilstotal))
+
+View(simdf) # (Always check your design matches this!)
+
+# 1.2 Add components of linear model to data frame:
+# here, logit(theta_psq) = b0, so just add b0
+simdf$b0 = b0
+View(simdf)
+
+# 1.3 Calculate log odds of each row 
+# that's the log odds of P(response_psq = 1)
+# and in our simple model, there is only one part of the model (b0)
+simdf$logodds = simdf$b0
+
+# 1.4 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 1.5 Sample from Bernoulli distribution
+# (AKA a binomial with trial size of 1)
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 1.6 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response) # the observed probability of getting 1
+
+
+
+# 2. A multilevel model ####
+# Assuming a basic multilevel model of responses to questions (q) made by
+# pupils (p) from schools (s):
+# Response_psq ~ Bernoulli(theta_psq)
+# theta_psq = P(Response_psq = 1)
+# logit(theta_psq) = b0 + u0p + u0s + u0q
+# b0 = logit(0.5)
+# u0p ~ Normal(0, sigma1)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# sigma1 = 1
+# sigma2 = 0.5
+# sigma3 = 1
+
+# Design:
+# 30 Questions
+# 25 Pupils (from each school)
+# 10 Schools
+
+# 2.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+sigma1 = 1
+sigma2 = 0.5
+sigma3 = 1
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+npupilstotal = npupils*nschools # to give each pupil a unique number
+
+# 2.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestions),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestions),
+                   "question" = rep(1:nquestions,
+                                    times = npupilstotal))
+
+# 2.2 Add components of linear model to data frame:
+# here, logit(theta_psq) = b0  + u0p + u0s + u0q
+
+# Fixed elements:
+simdf$b0 = b0
+
+# Random elements:
+# First, create vectors of random simulated deviates
+# Pupil deviates:
+u0p = rnorm(n = npupilstotal, 
+            mean = 0, 
+            sd = sigma1) 
+# School deviates:
+u0s = rnorm(n = nschools, 
+            mean = 0, 
+            sd = sigma2) 
+# Question deviates:
+u0q = rnorm(n = nquestions, 
+            mean = 0, 
+            sd = sigma3) 
+# Since these differ for each pupil/school/question index,
+# they need to be matched against the correct id in the dataframe.
+# Repeating these elements in the same way as when initially creating
+# the design data frame should do this:
+simdf$u0p = rep(u0p,
+                each = nquestions)
+simdf$u0s = rep(u0s,
+                each = npupils*nquestions)
+simdf$u0q = rep(u0q,
+                times = npupilstotal)
+
+# There are other ways to do this matching (e.g. Tidyverse packages). 
+# But always check that the data frame is as expected.
+View(simdf)
+
+# 2.3 Calculate log odds of each row 
+# that's the log odds of P(response_psq = 1)
+# and in our model, there is b0 and the random deviates
+simdf$logodds = simdf$b0 + 
+  simdf$u0p +
+  simdf$u0s +
+  simdf$u0q
+
+# 2.4 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 2.5 Sample from Bernoulli distribution
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 2.6 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response) # the observed probability of getting 1
+
+# 2.7 Check out variability in simulated responses!
+# Pupil variability (a subset of 50 pupils):
+ggplot(subset(simdf, simdf$pupil<=50)) + geom_histogram(aes(x=response)) + facet_wrap(~pupil)
+# School variability:
+ggplot(simdf) + geom_histogram(aes(x=response)) + facet_wrap(~school)
+# Question variability:
+ggplot(simdf) + geom_histogram(aes(x=response)) + facet_wrap(~question)
+
+
+
+# 3. 1 predictor in the multilevel model ####
+# Assuming a multilevel model of responses to questions (q) made by
+# pupils (p) from schools (s):
+# Response_psq ~ Bernoulli(theta_psq)
+# theta_psq = P(Response_psq = 1)
+# logit(theta_psq) = b0 + b1*tutoring_p + u0p + u0s + u0q
+# b0 = logit(0.5)
+# b1 = logit(0.65)-logit(0.5)
+# u0p ~ Normal(0, sigma1)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# sigma1 = 1
+# sigma2 = 0.5
+# sigma3 = 1
+
+# Design:
+# 30 Questions
+# 25 Pupils (from each school)
+# 10 Schools
+
+# 3.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+b1 = logit(0.65)-logit(0.5) # change in log odds for 1 unit increase in tutoring
+sigma1 = 1
+sigma2 = 0.5
+sigma3 = 1
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+npupilstotal = npupils*nschools # to give each pupil a unique number
+
+# 3.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestions),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestions),
+                   "question" = rep(1:nquestions,
+                                    times = npupilstotal))
+
+# 3.2 Add observations of predictor
+# Tutoring:
+# Observations of tutoring will be simulated assuming a basic model of 
+# whether a pupil (p) received tutoring:
+# Tutoring_p ~ Bernoulli(theta_p)
+# theta_p = P(Tutoring_p = 1)
+# logit(theta_p) = b0
+# b0 = logit(0.3)
+
+# Create a vector of observations using this model:
+tutoring_status = rbinom(n = npupilstotal,
+                         size = 1,
+                         prob = 0.3)
+
+# Add these observations to the data frame
+simdf$tutoring = rep(tutoring_status,
+                     each = nquestions)
+
+View(simdf)
+
+# 3.3 Add components of linear model to data frame:
+# here, logit(theta_psq) = b0 + b1*tutoring_p  + u0p + u0s + u0q
+
+# Fixed elements:
+simdf$b0 = b0
+simdf$b1 = b1
+
+# Random elements:
+# First, create vectors of random simulated deviates
+# Pupil deviates:
+u0p = rnorm(n = npupilstotal, 
+            mean = 0, 
+            sd = sigma1) 
+# School deviates:
+u0s = rnorm(n = nschools, 
+            mean = 0, 
+            sd = sigma2) 
+# Question deviates:
+u0q = rnorm(n = nquestions, 
+            mean = 0, 
+            sd = sigma3) 
+
+# Add them to the data frame:
+simdf$u0p = rep(u0p,
+                each = nquestions)
+simdf$u0s = rep(u0s,
+                each = npupils*nquestions)
+simdf$u0q = rep(u0q,
+                times = npupilstotal)
+
+
+# 3.4 Calculate log odds of each row 
+# that's the log odds of P(response_psq = 1)
+# and in our model, there is b0, b1 and the random deviates
+simdf$logodds = simdf$b0 +
+  simdf$b1 * simdf$tutoring +
+  simdf$u0p +
+  simdf$u0s +
+  simdf$u0q
+
+# 3.5 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 3.6 Sample from Bernoulli distribution
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 3.7 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response) # the observed probability of getting 1
+
+# 3.8 Check out effect of tutoring! (on observed probabilities)
+ggplot(simdf) + geom_histogram(aes(x=response)) + facet_wrap(~tutoring)
+aggregate(response ~ tutoring, simdf, FUN = mean) # observed probabilities
+
+
+
+# 4. 2 predictors in the multilevel model ####
+# Assuming a multilevel model of responses to questions (q) made by
+# pupils (p) from schools (s):
+# Response_psq ~ Bernoulli(theta_psq)
+# theta_psq = P(Response_psq = 1)
+# logit(theta_psq) = b0 + b1*tutoring_p + b2*absence_p + u0p + u0s + u0q
+# b0 = logit(0.5)
+# b1 = logit(0.65)-logit(0.5)
+# b2 = logit(0.45)-logit(0.5)
+# u0p ~ Normal(0, sigma1)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# sigma1 = 1
+# sigma2 = 0.5
+# sigma3 = 1
+
+# Design:
+# 30 Questions
+# 25 Pupils (from each school)
+# 10 Schools
+
+# 4.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+b1 = logit(0.65)-logit(0.5) # change in log odds for 1 unit increase in tutoring
+b2 = logit(0.45)-logit(0.5) # change in log odds for 1 unit increase in absence
+sigma1 = 1
+sigma2 = 0.5
+sigma3 = 1
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+npupilstotal = npupils*nschools # to give each pupil a unique number
+
+# 4.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestions),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestions),
+                   "question" = rep(1:nquestions,
+                                    times = npupilstotal))
+
+# 4.2 Add observations of predictors
+# Tutoring:
+# Observations of tutoring will be simulated assuming a basic model of 
+# whether a pupil (p) received tutoring:
+# Tutoring_p ~ Bernoulli(theta_p)
+# theta_p = P(Tutoring_p = 1)
+# logit(theta_p) = b0
+# b0 = logit(0.3)
+
+# Create a vector of observations using this model:
+tutoring_status = rbinom(n = npupilstotal,
+                         size = 1,
+                         prob = 0.3)
+
+# Add these observations to the data frame
+simdf$tutoring = rep(tutoring_status,
+                     each = nquestions)
+
+# Absence:
+# Observations of absence will be simulated assuming a basic model of 
+# whether a pupil (p) missed a day, where the number of absences is counted:
+# Absence_p ~ Binomial(theta_p, n)
+# n = 195
+# theta_p = P(Absence_p = 1)
+# logit(theta_p) = b0
+# b0 = logit(0.02)
+
+# Create a vector of observations using this model:
+absence_count = rbinom(n = npupilstotal,
+                       size = 195,
+                       prob = 0.02)
+
+# Add these observations to the data frame
+simdf$absence = rep(absence_count,
+                    each = nquestions)
+
+View(simdf)
+
+# 4.3 Add components of linear model to data frame:
+# here, logit(theta_psq) = b0 + b1*tutoring_p + b2*tutoring_p  + u0p + u0s + u0q
+
+# Fixed elements:
+simdf$b0 = b0
+simdf$b1 = b1
+simdf$b2 = b2
+
+# Random elements:
+# First, create vectors of random simulated deviates
+# Pupil deviates:
+u0p = rnorm(n = npupilstotal, 
+            mean = 0, 
+            sd = sigma1) 
+# School deviates:
+u0s = rnorm(n = nschools, 
+            mean = 0, 
+            sd = sigma2) 
+# Question deviates:
+u0q = rnorm(n = nquestions, 
+            mean = 0, 
+            sd = sigma3) 
+
+# Add them to the data frame:
+simdf$u0p = rep(u0p,
+                each = nquestions)
+simdf$u0s = rep(u0s,
+                each = npupils*nquestions)
+simdf$u0q = rep(u0q,
+                times = npupilstotal)
+
+
+# 4.4 Calculate log odds of each row 
+# that's the log odds of P(response_psq = 1)
+# and in our model, there is b0, b1, b2 and the random deviates
+simdf$logodds = simdf$b0 +
+  simdf$b1 * simdf$tutoring +
+  simdf$b2 * simdf$absence +
+  simdf$u0p +
+  simdf$u0s +
+  simdf$u0q
+
+# 4.5 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 4.6 Sample from Bernoulli distribution
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 4.7 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response) # the observed probability of getting 1 (it has dropped)
+
+# 4.8 Check out effect of absence! (on observed probabilities)
+ggplot(simdf) + geom_histogram(aes(x=response)) + facet_wrap(~absence)
+aggregate(response ~ absence, simdf, FUN = mean) # observed probabilities
+
+
+
+# 5. Estimating power ####
+# Assuming a multilevel model of responses to questions (q) made by
+# pupils (p) from schools (s):
+# Response_psq ~ Bernoulli(theta_psq)
+# theta_psq = P(Response_psq = 1)
+# logit(theta_psq) = b0 + b1*tutoring_p + b2*absence_p + u0p + u0s + u0q
+# b0 = logit(0.5)
+# b1 = logit(0.65)-logit(0.5)
+# b2 = logit(0.45)-logit(0.5)
+# u0p ~ Normal(0, sigma1)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# sigma1 = 1
+# sigma2 = 0.5
+# sigma3 = 1
+
+# What is the power for this design:
+# 30 Questions
+# 25 Pupils (from each school)
+# 10 Schools
+
+# Set up the for loop:
+nsimulations = 10 # number of simulations to be run
+results = data.frame() # empty data frame to store results
+
+for(each_simulation in 1:nsimulations){ # start of for loop
+  
+  # 5.0 Create key values as objects:
+  b0 = logit(0.5) # value of intercept in log odds units
+  b1 = logit(0.65)-logit(0.5) # change in log odds for 1 unit increase in tutoring
+  b2 = logit(0.45)-logit(0.5) # change in log odds for 1 unit increase in absence
+  sigma1 = 1
+  sigma2 = 0.5
+  sigma3 = 1
+  
+  npupils = 25 # number of pupils per school
+  nschools = 10 # number of schools
+  nquestions = 30 # number of questions
+  npupilstotal = npupils*nschools # to give each pupil a unique number
+  
+  # 5.1 Design data frame:
+  simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                   each = nquestions),
+                     "school" = rep(1:nschools,
+                                    each = npupils*nquestions),
+                     "question" = rep(1:nquestions,
+                                      times = npupilstotal))
+  
+  # 5.2 Add observations of predictors
+  # Tutoring:
+  # Observations of tutoring will be simulated assuming a basic model of 
+  # whether a pupil (p) received tutoring:
+  # Tutoring_p ~ Bernoulli(theta_p)
+  # theta_p = P(Tutoring_p = 1)
+  # logit(theta_p) = b0
+  # b0 = logit(0.3)
+  
+  # Create a vector of observations using this model:
+  tutoring_status = rbinom(n = npupilstotal,
+                           size = 1,
+                           prob = 0.3)
+  
+  # Add these observations to the data frame
+  simdf$tutoring = rep(tutoring_status,
+                       each = nquestions)
+  
+  # Absence:
+  # Observations of absence will be simulated assuming a basic model of 
+  # whether a pupil (p) missed a day, where the number of absences is counted:
+  # Absence_p ~ Binomial(theta_p, n)
+  # n = 195
+  # theta_p = P(Absence_p = 1)
+  # logit(theta_p) = b0
+  # b0 = logit(0.02)
+  
+  # Create a vector of observations using this model:
+  absence_count = rbinom(n = npupilstotal,
+                         size = 195,
+                         prob = 0.02)
+  
+  # Add these observations to the data frame
+  simdf$absence = rep(absence_count,
+                      each = nquestions)
+  
+  
+  # 5.3 Add components of linear model to data frame:
+  # here, logit(theta_psq) = b0 + b1*tutoring_p + b2*tutoring_p  + u0p + u0s + u0q
+  
+  # Fixed elements:
+  simdf$b0 = b0
+  simdf$b1 = b1
+  simdf$b2 = b2
+  
+  # Random elements:
+  # First, create vectors of random simulated deviates
+  # Pupil deviates:
+  u0p = rnorm(n = npupilstotal, 
+              mean = 0, 
+              sd = sigma1) 
+  # School deviates:
+  u0s = rnorm(n = nschools, 
+              mean = 0, 
+              sd = sigma2) 
+  # Question deviates:
+  u0q = rnorm(n = nquestions, 
+              mean = 0, 
+              sd = sigma3) 
+  
+  # Add them to the data frame:
+  simdf$u0p = rep(u0p,
+                  each = nquestions)
+  simdf$u0s = rep(u0s,
+                  each = npupils*nquestions)
+  simdf$u0q = rep(u0q,
+                  times = npupilstotal)
+  
+  
+  # 5.4 Calculate log odds of each row 
+  # that's the log odds of P(response_psq = 1)
+  # and in our model, there is b0, b1, b2 and the random deviates
+  simdf$logodds = simdf$b0 +
+    simdf$b1 * simdf$tutoring +
+    simdf$b2 * simdf$absence +
+    simdf$u0p +
+    simdf$u0s +
+    simdf$u0q
+  
+  # 5.5 Convert log odds to probability
+  simdf$probability = logistic(simdf$logodds)
+  
+  # 5.6 Sample from Bernoulli distribution
+  simdf$response = rbinom(n = 1:nrow(simdf),
+                          size = 1,
+                          prob = simdf$probability)
+  
+  
+  # 5.7 Fit the model
+  sim_model = glmer(response ~ tutoring + absence + 
+                      (1|pupil) + (1|school) + (1|question),
+                    family = binomial(link = "logit"),
+                    data = simdf)
+  
+  # 5.8 Extract model estimates
+  model_summary = summary(sim_model)
+  
+  temp_results = data.frame(simid = each_simulation, # simulation id
+                            b_tutoring = model_summary$coefficients[2,1], # estimate of b1
+                            p_tutoring = model_summary$coefficients[2,4], # p value for b1
+                            b_absence = model_summary$coefficients[3,1], # estimate of b2
+                            p_absence = model_summary$coefficients[3,4]) # p value for b2
+  
+  results = rbind(results, temp_results)
+  
+  # Add line to monitor progress:
+  print(paste("Progress:", each_simulation/nsimulations*100, "%", sep=""))
+}
+
+# 5.9 Estimate power
+# Add binary indicator for significance:
+results$b1_sig = ifelse(results$p_tutoring < 0.05, 1, 0)
+results$b2_sig = ifelse(results$p_absence < 0.05, 1, 0)
+# Take the mean of this for the proportion meeting significance:
+mean(results$b1_sig)
+mean(results$b2_sig)
+
+
+
+# 6. Random slopes in the multilevel model ####
+# Assuming a multilevel model of responses to questions (q) on test (t) made by
+# pupils (p) from schools (s):
+# Response_psqt ~ Bernoulli(theta_psqt)
+# theta_psqt = P(Response_psqt = 1)
+# logit(theta_psqt) = b0 + (b1+u1p)*tutoring_pt + u0p + u0s + u0q
+# b0 = logit(0.5)
+# b1 = logit(0.65)-logit(0.5)
+# u0p ~ Normal(0, sigma1)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# u1p ~ Normal(0, sigma4)
+# sigma1 = 1
+# sigma2 = 0.5
+# sigma3 = 1
+# sigma4 = 0.5
+
+# Design:
+# 30 Questions (on each test)
+# 2 Tests
+# 25 Pupils (from each school)
+# 10 Schools
+
+
+# 6.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+b1 = logit(0.65)-logit(0.5) # change in log odds for 1 unit increase in tutoring
+sigma1 = 1
+sigma2 = 0.5
+sigma3 = 1
+sigma4 = 0.5
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+ntests = 2 # number of tests
+npupilstotal = npupils*nschools # to give each pupil a unique number
+nquestionstotal = nquestions*ntests # to give each question a unique number
+
+# 6.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestionstotal),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestionstotal),
+                   "question" = rep(1:nquestionstotal,
+                                    times = npupilstotal),
+                   "test" = rep(1:ntests,
+                                each = nquestions,
+                                times = npupilstotal))
+
+# 6.2 Add observations of predictors
+# Tutoring:
+# Observations of tutoring will be 50:50 0 and 1:
+# 0 = no tutoring pre-test
+# 1 = tutoring pre-test
+
+# Add this binary indicator to the data frame
+simdf$tutoring = rep(0:1,
+                     each = nquestions,
+                     times = npupilstotal)
+View(simdf)
+
+# 6.3 Add components of linear model to data frame:
+# here, logit(theta_psqt) = b0 + (b1+u1p)*tutoring_pt + u0p + u0s + u0q
+
+# Fixed elements:
+simdf$b0 = b0
+simdf$b1 = b1
+
+# Random elements:
+# Intercept variance:
+# First, create vectors of random simulated deviates
+# Pupil deviates:
+u0p = rnorm(n = npupilstotal, 
+            mean = 0, 
+            sd = sigma1) 
+# School deviates:
+u0s = rnorm(n = nschools, 
+            mean = 0, 
+            sd = sigma2) 
+# Question deviates:
+u0q = rnorm(n = nquestionstotal, 
+            mean = 0, 
+            sd = sigma3) 
+
+# Add them to the data frame:
+simdf$u0p = rep(u0p,
+                each = nquestionstotal)
+simdf$u0s = rep(u0s,
+                each = npupils*nquestionstotal)
+simdf$u0q = rep(u0q,
+                times = npupilstotal)
+
+# Slope variance:
+# First, create vectors of random simulated deviates
+# Tutoring effect deviates:
+u1p = rnorm(n = npupilstotal, 
+            mean = 0, 
+            sd = sigma4) 
+# Add them to the data frame:
+simdf$u1p = rep(u1p,
+                each = nquestionstotal)
+
+# 6.4 Calculate log odds of each row 
+# that's the log odds of P(response_psqt = 1)
+# and in our model, there is b0, b1 and the random deviates
+simdf$logodds = simdf$b0 +
+  (simdf$b1+simdf$u1p) * simdf$tutoring +
+  simdf$u0p +
+  simdf$u0s +
+  simdf$u0q
+
+# 6.5 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 6.6 Sample from Bernoulli distribution
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 6.7 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response)
+
+# 6.8 Check out random slopes on effect of tutoring (on observed probability)
+observed_accuracy = data.frame(xtabs(response ~ tutoring + pupil, simdf))
+observed_accuracy$proportion = observed_accuracy$Freq/30
+ggplot(observed_accuracy, aes(x=tutoring, y=proportion, group=pupil)) + 
+  geom_point() +
+  geom_line()
+aggregate(proportion ~ tutoring, observed_accuracy, FUN = mean) # observed probabilities
+
+
+# 7. Covariance between random intercepts and slopes ####
+# Assuming a multilevel model of responses to questions (q) on test (t) made by
+# pupils (p) from schools (s):
+# Response_psqt ~ Bernoulli(theta_psqt)
+# theta_psqt = P(Response_psqt = 1)
+# logit(theta_psqt) = b0 + (b1+u1p)*tutoring_pt + u0p + u0s + u0q
+# b0 = logit(0.5)
+# b1 = logit(0.65)-logit(0.5)
+# b2 = logit(0.45)-logit(0.5)
+# u0s ~ Normal(0, sigma2)
+# u0q ~ Normal(0, sigma3)
+# sigma2 = 0.5
+# sigma3 = 1
+
+# Bivariate normal for person-level intercept and slope variance:
+# [u0p,u1p]  ~ Normal_2([0,0], Sigma)           # u0p and u1p are bivariate normal
+# Sigma = [var(u0p),      cov(u0p, u1p)]        # Sigma is the covariance matrix
+#         [cov(u1p, u0p), var(u1p)     ]
+# var(u0p) = sigma1^2                           # variance is SD squared
+# var(u1p) = sigma4^2
+# cov(u0p, u1p) = cor(u0p,u1p)*sigma1*sigma4    # covariance is unstandardised correlation
+# sigma1 = 1
+# sigma4 = 0.5
+# cor(u0p, u1p) = 0.8 # Assuming a strong positive association between intercepts and slopes
+
+
+# Design:
+# 30 Questions (on each test)
+# 2 Tests
+# 25 Pupils (from each school)
+# 10 Schools
+
+
+# 7.0 Create key values as objects:
+b0 = logit(0.5) # value of intercept in log odds units
+b1 = logit(0.65)-logit(0.5) # change in log odds for 1 unit increase in tutoring
+b2 = logit(0.45)-logit(0.5) # change in log odds for 1 unit increase in absence
+sigma1 = 1
+sigma2 = 0.5
+sigma3 = 1
+sigma4 = 0.5
+cor_u0p_u1p = 0.8
+
+npupils = 25 # number of pupils per school
+nschools = 10 # number of schools
+nquestions = 30 # number of questions
+ntests = 2 # number of tests
+npupilstotal = npupils*nschools # to give each pupil a unique number
+nquestionstotal = nquestions*ntests # to give each question a unique number
+
+# 7.1 Design data frame:
+simdf = data.frame("pupil" = rep(1:npupilstotal,
+                                 each = nquestionstotal),
+                   "school" = rep(1:nschools,
+                                  each = npupils*nquestionstotal),
+                   "question" = rep(1:nquestionstotal,
+                                    times = npupilstotal),
+                   "test" = rep(1:ntests,
+                                each = nquestions,
+                                times = npupilstotal))
+
+# 7.2 Add observations of predictors
+# Tutoring:
+# Observations of tutoring will be 50:50 0 and 1:
+# 0 = no tutoring pre-test
+# 1 = tutoring pre-test
+
+# Add this binary indicator to the data frame
+simdf$tutoring = rep(0:1,
+                     each = nquestions,
+                     times = npupilstotal)
+View(simdf)
+
+# 7.3 Add components of linear model to data frame:
+# here, logit(theta_psqt) = b0 + (b1+u1p)*tutoring_pt + u0p + u0s + u0q
+
+# Fixed elements:
+simdf$b0 = b0
+simdf$b1 = b1
+simdf$b2 = b2
+
+# Random elements:
+# Intercept variance:
+# First, create vectors of random simulated deviates
+# School deviates:
+u0s = rnorm(n = nschools, 
+            mean = 0, 
+            sd = sigma2) 
+# Question deviates:
+u0q = rnorm(n = nquestionstotal, 
+            mean = 0, 
+            sd = sigma3) 
+
+# Add them to the data frame:
+simdf$u0s = rep(u0s,
+                each = npupils*nquestionstotal)
+simdf$u0q = rep(u0q,
+                times = npupilstotal)
+
+# Pupil-level intercept and slope deviates with covariance:
+# To sample normally distributed intercept and slope deviates with dependence
+# we must sample from a bivariate normal. We can do this using a function (mvrnorm)
+# in the MASS package.
+# First, define the vector of means and the covariance matrix:
+means_p = c(0,0) # means are both 0
+covar_matrix_p = matrix(c(sigma1^2, cor_u0p_u1p*sigma1*sigma4,
+                          cor_u0p_u1p*sigma1*sigma4, sigma4^2), 
+                        nrow=2, ncol=2)
+covar_matrix_p # the covariance matrix, given the SD's and correlation specified
+
+u0p_and_u1p = mvrnorm(n = npupilstotal,    # sample from a multivariate normal
+                      mu = means_p,
+                      Sigma = covar_matrix_p)
+View(u0p_and_u1p) # first column is intercept deviate, second is slope deviate, 1 row per pupil
+
+# Add them to the data frame:
+simdf$u0p = rep(u0p_and_u1p[,1],
+                each = nquestionstotal)
+simdf$u1p = rep(u0p_and_u1p[,2],
+                each = nquestionstotal)
+
+View(simdf)
+
+# 7.4 Calculate log odds of each row 
+# that's the log odds of P(response_psqt = 1)
+# and in our model, there is b0, b1 and the random deviates
+simdf$logodds = simdf$b0 +
+  (simdf$b1+simdf$u1p) * simdf$tutoring +
+  simdf$u0p +
+  simdf$u0s +
+  simdf$u0q
+
+# 7.5 Convert log odds to probability
+simdf$probability = logistic(simdf$logodds)
+
+# 7.6 Sample from Bernoulli distribution
+simdf$response = rbinom(n = 1:nrow(simdf),
+                        size = 1,
+                        prob = simdf$probability)
+View(simdf)
+
+# 7.7 Check out the simulated response!
+hist(simdf$response) # distribution of responses
+mean(simdf$response)
+
+# 7.8 Check out random slopes on effect of tutoring (on observed probability)
+observed_accuracy = data.frame(xtabs(response ~ tutoring + pupil, simdf))
+observed_accuracy$proportion = observed_accuracy$Freq/30
+ggplot(observed_accuracy, aes(x=tutoring, y=proportion, group=pupil)) + 
+  geom_point() +
+  geom_line()
+
+# 7.9 Check out the correlation between intercept and slope variances (in logits)
+cor(simdf$u0p,simdf$u1p)
+ggplot(simdf) + geom_point(aes(x=u0p, y=u1p))
+
+# And how this looks in terms of the effect of tutoring in isolation: (ignoring school/question intercepts)
+simulated_logits = simdf[c(1,5:7,11,12)]
+simulated_logits$logodds = simulated_logits$b0 + (simulated_logits$b1+simulated_logits$u1p) * simulated_logits$tutoring + simulated_logits$u0p
+ggplot(simulated_logits, aes(x=(tutoring), y=(logodds), group=pupil)) + 
+  geom_point() +
+  geom_line()
+# ^ Positive covariance causes a 'fanning out' shape (a negative covariance would show the opposite)

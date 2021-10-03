@@ -1,0 +1,38 @@
+library(here)
+library(tidyverse)
+
+file_names  <- list.files(path= here("data", "participant_uploads"),
+                         recursive=T,
+                         pattern=".wav"
+                         ,full.names=T) %>% 
+  as.data.frame() %>% 
+  rename(file = ".") %>% 
+  mutate(file = str_remove(file, 
+                        "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/participant_uploads/"),
+        file = str_remove(file, ".wav")) 
+
+file_names$word <- file_names$file
+
+file_names_tidy <- file_names %>% 
+  separate(word, into = c("1", "2"), sep = "trialNr_1_") %>% 
+  rename(word = "2") %>% 
+  mutate(word = str_remove(word, "_recording")) %>%
+  mutate(word = str_remove(word, "_object")) %>% 
+  separate("1", into = c("participant", "code"), sep = "_blockNr_1_taskNr_") %>% 
+  dplyr::select(file, word) %>% 
+  separate("file", into = c("participant", "file"), sep = "/")
+
+
+
+
+for(thisRun in 1:nrow(file_names_tidy))
+{
+  filename <- file_names_tidy$file[thisRun]  
+  direc <- paste("data/participant_uploads/", file_names_tidy$participant[thisRun], "/", sep = "")
+  end <- ".txt"
+  path <- paste0(direc,filename,end)
+  fileConn<-file(paste0(path))
+  writeLines(file_names_tidy$word[thisRun], fileConn)
+  close(fileConn)
+}
+

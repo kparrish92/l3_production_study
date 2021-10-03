@@ -1,0 +1,84 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.749333 
+tiers? <exists> 
+size = 4 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 1.749333 
+        intervals: size = 2 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.79 
+            text = "" 
+        intervals [2]:
+            xmin = 0.79 
+            xmax = 1.749333 
+            text = "kitten" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 1.749333 
+        intervals: size = 2 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.79 
+            text = "" 
+        intervals [2]:
+            xmin = 0.79 
+            xmax = 1.749333 
+            text = "k i t a~ e~" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.749333 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.79 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 0.79 
+            xmax = 0.93 
+            text = "k" 
+        intervals [3]:
+            xmin = 0.93 
+            xmax = 1.11 
+            text = "i" 
+        intervals [4]:
+            xmin = 1.11 
+            xmax = 1.16 
+            text = "t" 
+        intervals [5]:
+            xmin = 1.16 
+            xmax = 1.2 
+            text = "a~" 
+        intervals [6]:
+            xmin = 1.2 
+            xmax = 1.749333 
+            text = "e~" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "AutoVOT" 
+        xmin = 0 
+        xmax = 1.749333 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.863 
+            text = "" 
+        intervals [2]:
+            xmin = 0.863 
+            xmax = 0.936 
+            text = "pred" 
+        intervals [3]:
+            xmin = 0.936 
+            xmax = 1.749333 
+            text = "" 

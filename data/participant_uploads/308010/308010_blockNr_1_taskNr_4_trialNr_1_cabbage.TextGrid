@@ -1,0 +1,82 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.56 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.8475516575774971 
+            text = "" 
+        intervals [2]:
+            xmin = 0.8475516575774971 
+            xmax = 1.4968849598163032 
+            text = "cabbage" 
+        intervals [3]:
+            xmin = 1.4968849598163032 
+            xmax = 2.56 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.836 
+            text = "" 
+        intervals [2]:
+            xmin = 0.836 
+            xmax = 1.256 
+            text = "k a b a x e" 
+        intervals [3]:
+            xmin = 1.256 
+            xmax = 2.56 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 8 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.8475516575774971 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 0.8475516575774971 
+            xmax = 0.9464038533295064 
+            text = "k" 
+        intervals [3]:
+            xmin = 0.9464038533295064 
+            xmax = 1.026 
+            text = "a" 
+        intervals [4]:
+            xmin = 1.026 
+            xmax = 1.056 
+            text = "b" 
+        intervals [5]:
+            xmin = 1.056 
+            xmax = 1.186 
+            text = "a" 
+        intervals [6]:
+            xmin = 1.186 
+            xmax = 1.226 
+            text = "x" 
+        intervals [7]:
+            xmin = 1.226 
+            xmax = 1.256 
+            text = "e" 
+        intervals [8]:
+            xmin = 1.256 
+            xmax = 2.56 
+            text = "<p:>" 

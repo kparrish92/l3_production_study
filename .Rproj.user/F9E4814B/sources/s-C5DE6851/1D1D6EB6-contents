@@ -1,0 +1,51 @@
+# power analysis to justify sample size 
+
+# data 
+
+mean_df_lang_r <- read.csv(here("data", "tidy", "desc_vot.csv"))
+
+#number of iterations 
+k = 100
+
+
+Keanu = matrix(nrow = k)
+Morpheus = matrix(nrow = 7, ncol = 2)
+sizes = c(20,40,60,80,100,120,140)
+
+l1_mean = mean_df_lang_r$mean[1]
+l2_mean = mean_df_lang_r$mean[2]
+l1_sd = mean_df_lang_r$sd[1]
+l2_sd = mean_df_lang_r$sd[2]
+
+# uncomment for spanish estiamtes 
+#l1_mean = span_mean
+#l1_sd = span_sd
+
+
+
+for(thisSize in 1:nrow(Morpheus)){
+  
+  for(thisRun in 1:k){
+    mv1 = rnorm(sizes[thisSize], m = mean(rnorm(n = sizes[thisSize], mean = l1_mean, sd = l1_sd)), 
+                sd = sd(rnorm(n = sizes[thisSize], mean = l1_mean, sd = l1_sd)))
+    mv2 = rnorm(sizes[thisSize], m = mean(rnorm(n = sizes[thisSize], mean = l2_mean, 
+                                                sd = l2_sd)), sd = sd(rnorm(n = sizes[thisSize], 
+                                                                                           mean = l2_mean, 
+                                                                                           sd = l2_sd)))
+    mrT = TOSTpaired(n = sizes[thisSize], m1 = mean(mv1), 
+                     m2 = mean(mv2),
+                     sd1 = sd(mv1),
+                     sd2 = sd(mv2),
+                     r12 = .5, 
+                     low_eqbound_dz = -.4,
+                     high_eqbound_dz = .4,
+                     alpha = .05, plot = TRUE, verbose = TRUE)
+    Keanu[thisRun] = pmax(mrT$TOST_p1, mrT$TOST_p2) 
+  }
+  
+  Morpheus[thisSize, 1] = sizes[thisSize]
+  Morpheus[thisSize, 2] = sum(Keanu < .05)
+}
+
+plot(Morpheus)
+lines(Morpheus)

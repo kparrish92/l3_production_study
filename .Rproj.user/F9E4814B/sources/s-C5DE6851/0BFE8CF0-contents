@@ -1,0 +1,114 @@
+# Load and tidy data from EPT --------------------------------------------------
+#
+# Last update: 2021-07-21
+# This script loads and binds the csv files produced by the PRAAT scripts. 
+#
+# -----------------------------------------------------------------------------
+
+# Source libs -----------------------------------------------------------------
+
+source(here::here("scripts", "00_libs.R"))
+
+# -----------------------------------------------------------------------------
+
+
+# Import Spanish L1 data 
+list_of_files <- list.files(path = "data/raw", recursive = TRUE,
+                            pattern = "\\.csv$", 
+                            full.names = TRUE)
+
+all_se <- rbindlist(sapply(list_of_files, fread, simplify = FALSE),
+                    use.names = FALSE, idcol = "FileName", fill = FALSE)
+
+
+# tidy 
+
+all_se_tidy_long = all_se %>% 
+  filter(V1 != "fileID") %>% 
+  mutate(participant = str_remove(FileName, "data/raw/")) %>% 
+  mutate(participant = str_remove(participant, ".csv")) %>% 
+  mutate(lang_code = str_remove(V1, "blockNr_1_taskNr_")) %>% 
+  mutate(lang_code = str_remove(lang_code, "trialNr_1_")) %>% 
+  mutate(lang_code = str_remove(lang_code, "_recording")) %>% 
+  separate(lang_code, into = c("lang_code", "word")) %>% 
+  filter(lang_code != 3) %>% 
+  mutate(language = case_when(lang_code == 5  ~ "french", lang_code == 7  ~ "english")) %>% 
+  rename("group" = V2) %>% 
+  rename("f1" = V3) %>% 
+  rename("f2" = V4) %>% 
+  rename("vot" = V5) %>% 
+  dplyr::select(participant, group, word, language, f1, f2, vot)
+
+# change vot, f1, f2 to numeric
+all_se_tidy_long$vot = as.numeric(all_se_tidy_long$vot)
+all_se_tidy_long$f1 = as.numeric(all_se_tidy_long$f1)
+all_se_tidy_long$f2 = as.numeric(all_se_tidy_long$f2)
+
+
+# save outputs 
+all_se_tidy_long = all_se_tidy_long %>% 
+  filter(participant != "281857") 
+
+all_se_tidy_long %>% 
+  write_csv(here("data", "tidy", "all_se_tidy_long.csv"))
+
+# subset data w/o pas 
+long_data_no_pas = all_se_tidy_long %>% 
+  filter(word != "pas") 
+
+long_data_no_pas %>%   
+  write.csv(here("data", "tidy", "no_pas.csv"))
+
+# get non-aspirating participants in English or French
+
+non_asp = all_se_tidy_long %>%
+  group_by(participant, language) %>% 
+  summarize(vot = mean(vot)) %>% 
+  filter(!is.na(vot)) %>% 
+  filter(language == "english") %>% 
+  filter(vot < 20)
+
+# participants who aspirated in English but not French. 
+
+all_desc = all_se_tidy_long %>% 
+  group_by(participant, language) %>% 
+  summarize(mean = mean(vot), n = n())
+
+all_desc_wide = all_desc %>% 
+  dplyr::select(participant, language, mean) %>% 
+  pivot_wider(names_from = language, values_from = mean)
+
+asp_e_noasp_f = all_desc_wide %>% 
+  filter(english > 20) %>% 
+  filter(french < 20)
+
+# total n_participants 
+total_n = length(unique(all_se_tidy_long$participant))
+
+# number of participants who aspirated in english but not french 
+english_asp = nrow(asp_e_noasp_f)
+
+# total number of non_asp in English
+non_asp_p = length(unique(non_asp$participant))
+
+
+# create and save table 
+
+participant_df =  data.frame("Participant Classifications" = c("total_n", "English aspiration", 
+                                                            "No aspiration", "new total"),
+           "N" = (c(total_n, english_asp, non_asp_p, total_n - english_asp - non_asp_p))) %>% 
+  write.csv(here("data", "tidy", "participant_info.csv"))
+
+
+# remove non-asp data
+no_pas_no_asp = long_data_no_pas %>% 
+  filter(!participant %in% non_asp$participant)
+
+no_pas_no_asp %>% 
+  write.csv(here("data", "tidy", "no_pas_no_asp.csv"))
+
+removed_df = all_se_tidy_long %>% 
+  filter(!participant %in% non_asp$participant)
+
+removed_df %>% 
+  write.csv(here("data", "tidy", "removed_df.csv"))

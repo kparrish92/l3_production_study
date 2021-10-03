@@ -1,0 +1,100 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.56 
+tiers? <exists> 
+size = 4 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.068833 
+            text = "" 
+        intervals [2]:
+            xmin = 1.068833 
+            xmax = 1.612393 
+            text = "tipping" 
+        intervals [3]:
+            xmin = 1.612393 
+            xmax = 2.56 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.046 
+            text = "" 
+        intervals [2]:
+            xmin = 1.046 
+            xmax = 1.576 
+            text = "t i p i N g" 
+        intervals [3]:
+            xmin = 1.576 
+            xmax = 2.56 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 8 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.068833 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 1.068833 
+            xmax = 1.114211 
+            text = "t" 
+        intervals [3]:
+            xmin = 1.114211 
+            xmax = 1.266 
+            text = "i" 
+        intervals [4]:
+            xmin = 1.266 
+            xmax = 1.366 
+            text = "p" 
+        intervals [5]:
+            xmin = 1.366 
+            xmax = 1.486 
+            text = "i" 
+        intervals [6]:
+            xmin = 1.486 
+            xmax = 1.546 
+            text = "N" 
+        intervals [7]:
+            xmin = 1.546 
+            xmax = 1.576 
+            text = "g" 
+        intervals [8]:
+            xmin = 1.576 
+            xmax = 2.56 
+            text = "<p:>" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "AutoVOT" 
+        xmin = 0 
+        xmax = 2.56 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 1.07 
+            text = "" 
+        intervals [2]:
+            xmin = 1.07 
+            xmax = 1.108 
+            text = "pred" 
+        intervals [3]:
+            xmin = 1.108 
+            xmax = 2.56 
+            text = "" 

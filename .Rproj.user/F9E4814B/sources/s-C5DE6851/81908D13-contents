@@ -1,0 +1,39 @@
+---
+documentclass: ruthesis
+classoption: dissertation
+linkcolor: black
+output:
+  bookdown::pdf_document2: 
+    highlight: zenburn
+    number_sections: yes
+    toc: no
+    includes:
+      in_header: includes/tex/header.tex
+      before_body: includes/tex/doc_prefix.tex
+bibliography: includes/bib/bibliography.bib
+csl: includes/bib/apa.csl
+---
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+<!-- Indent from second paragraph on --> 
+\setlength{\parindent}{0.2in} 
+
+<!-- Include chapters -->
+```{r, child='./sections/intro.Rmd'}
+```
+```{r, child='./sections/chapter2.rmd'}
+```
+```{r, child='./sections/chapter3.rmd'}
+```
+```{r, child='./sections/chapter4.rmd'}
+```
+
+
+<!-- Include appendix -->
+\appendix
+
+
+<!-- Include references -->
+\increferences{sections/references}

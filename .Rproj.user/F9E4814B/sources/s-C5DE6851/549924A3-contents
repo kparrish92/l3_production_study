@@ -1,0 +1,19 @@
+
+
+per_df <- matrix(nrow = 5)
+
+per_df$pip <- rbinom(n = 5, size = 1, prob = .8)
+
+
+simdf = data.frame("participant" =  rep(1:20))
+
+simdf = data.frame("participant" = rep(1,
+                                 each = 20),
+                   "sound" = rep(1:4,
+                                  each = 5)) %>% 
+  mutate(pseudoword = case_when(
+    sound == 1 ~ "gig",
+    sound == 2 ~ "g3g",
+    sound == 3 ~ "gog",
+    sound == 4 ~ "gug"
+  ))

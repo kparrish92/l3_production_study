@@ -1,0 +1,78 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.706667 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 1.706667 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6787583333333334 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6787583333333334 
+            xmax = 1.356 
+            text = "kitten" 
+        intervals [3]:
+            xmin = 1.356 
+            xmax = 1.706667 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 1.706667 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.676 
+            text = "" 
+        intervals [2]:
+            xmin = 0.676 
+            xmax = 1.356 
+            text = "k i t e n" 
+        intervals [3]:
+            xmin = 1.356 
+            xmax = 1.706667 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.706667 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6788467678066817 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 0.6788467678066817 
+            xmax = 0.7223333101525818 
+            text = "k" 
+        intervals [3]:
+            xmin = 0.7223333101525818 
+            xmax = 0.8789151119402986 
+            text = "i" 
+        intervals [4]:
+            xmin = 0.8789151119402986 
+            xmax = 1.1379113805970151 
+            text = "t" 
+        intervals [5]:
+            xmin = 1.1379113805970151 
+            xmax = 1.204945708955224 
+            text = "e" 
+        intervals [6]:
+            xmin = 1.204945708955224 
+            xmax = 1.356 
+            text = "n" 
+        intervals [7]:
+            xmin = 1.356 
+            xmax = 1.706667 
+            text = "<p:>" 

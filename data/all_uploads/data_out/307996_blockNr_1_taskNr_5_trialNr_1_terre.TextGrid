@@ -1,0 +1,92 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.194667 
+tiers? <exists> 
+size = 4 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 1.194667 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.422034 
+            text = "" 
+        intervals [2]:
+            xmin = 0.422034 
+            xmax = 0.776 
+            text = "terre" 
+        intervals [3]:
+            xmin = 0.776 
+            xmax = 1.194667 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 1.194667 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.37 
+            text = "" 
+        intervals [2]:
+            xmin = 0.37 
+            xmax = 0.776 
+            text = "t e rr e" 
+        intervals [3]:
+            xmin = 0.776 
+            xmax = 1.194667 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.194667 
+        intervals: size = 6 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.422034 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 0.422034 
+            xmax = 0.453437 
+            text = "t" 
+        intervals [3]:
+            xmin = 0.453437 
+            xmax = 0.646 
+            text = "e" 
+        intervals [4]:
+            xmin = 0.646 
+            xmax = 0.716 
+            text = "rr" 
+        intervals [5]:
+            xmin = 0.716 
+            xmax = 0.776 
+            text = "e" 
+        intervals [6]:
+            xmin = 0.776 
+            xmax = 1.194667 
+            text = "<p:>" 
+    item [4]:
+        class = "IntervalTier" 
+        name = "AutoVOT" 
+        xmin = 0 
+        xmax = 1.194667 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.444 
+            text = "" 
+        intervals [2]:
+            xmin = 0.444 
+            xmax = 0.449 
+            text = "pred" 
+        intervals [3]:
+            xmin = 0.449 
+            xmax = 1.194667 
+            text = "" 

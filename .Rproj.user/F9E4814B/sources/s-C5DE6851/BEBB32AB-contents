@@ -1,0 +1,15 @@
+dat.files  <- list.files(path= here("participant_uploads"),
+                         recursive=T,
+                         pattern=".mp3"
+                         ,full.names=T)
+dat.files_txt  <- list.files(path= here("participant_uploads"),
+                         recursive=T,
+                         pattern=".rtf"
+                         ,full.names=T)
+
+
+
+from.dir <- here("participant_uploads")
+to.dir   <- here("all_uploads")
+files    <- list.files(path = from.dir, full.names = TRUE, recursive = TRUE)
+for (f in files) file.copy(from = f, to = to.dir)

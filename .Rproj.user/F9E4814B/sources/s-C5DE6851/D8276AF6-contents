@@ -1,0 +1,12 @@
+
+
+file_names  <- list.files(path= here("data", "participant_uploads"),
+                          recursive=T,
+                          pattern=".wav"
+                          ,full.names=T) %>% 
+  as.data.frame() %>% 
+  rename(file = ".") %>% 
+  mutate(file = str_remove(file, 
+                           "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/participant_uploads/"),
+         file = str_remove(file, ".wav")) %>% 
+  dp

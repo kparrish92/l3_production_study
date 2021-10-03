@@ -1,0 +1,4 @@
+
+
+
+strtrim(file_names_tidy$`1`, nchar(file_names_tidy$`1`)-3)
