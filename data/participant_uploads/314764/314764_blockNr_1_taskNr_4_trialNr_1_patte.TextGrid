@@ -14,10 +14,10 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 1.7024458080471696 
+            xmax = 1.7124209567815623 
             text = "" 
         intervals [2]:
-            xmin = 1.7024458080471696 
+            xmin = 1.7124209567815623 
             xmax = 2.376670507402591 
             text = "patte" 
         intervals [3]:
@@ -50,14 +50,14 @@ item []:
         intervals: size = 5 
         intervals [1]:
             xmin = 0 
-            xmax = 1.7024458080471696 
+            xmax = 1.7124209567815623 
             text = "<p:>" 
         intervals [2]:
-            xmin = 1.7024458080471696 
-            xmax = 1.719978985975049 
+            xmin = 1.7124209567815623 
+            xmax = 1.7207879090385438 
             text = "p" 
         intervals [3]:
-            xmin = 1.719978985975049 
+            xmin = 1.7207879090385438 
             xmax = 1.91 
             text = "a" 
         intervals [4]:

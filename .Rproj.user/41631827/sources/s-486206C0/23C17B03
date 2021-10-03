@@ -1,0 +1,24 @@
+{
+    "id": "23C17B03",
+    "path": "~/GitHub/l3_production_study/scripts/03_tidy.R",
+    "project_path": "scripts/03_tidy.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1633273748008.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "cursorPosition": "64,56",
+        "scrollLine": "54"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1633280628,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1633280628495,
+    "read_only": false,
+    "read_only_alternatives": []
+}
