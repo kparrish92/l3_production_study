@@ -1,0 +1,51 @@
+# Based on the results of the pilot
+
+*Another production task idea* 
+The production of last names and words without a reference for shadowing - 
+
+Example: Joseph's pronunciation of "pavlovia" is Spanish-like. 
+
+- Make a list of words with -o and -a endings 
+- Make a list ending with "ing" 
+
+Specific - does phonotactic probability modulate bilingual speakers' choice of language-specific phonetics when pronouncing a novel word or name? 
+
+As phon prob in language A increases, do the log odds of it being pronounced as language A-like? 
+
+
+I want to see whether the pilot results are due to L1 or input influence 
+
+To do so, various groups are needed. 
+
+- Mirror image groups
+- Subtractive groups 
+- 
+
+# Production 
+
+8 groups 
+
+**Spanish L1 groups**
+Spanish L1 English L2 L3 German (shadow)
+
+Spanish L1 English L2 L3 French (shadow)
+
+Spanish L1 German L2 (shadow)
+
+Spanish L1 French L2 (shadow)
+
+These groups will provide evidence and comparisons which allow for the evaluation of the influence of the L2 when phonetic differences remain the same in a cross-sectional design. 
+
+
+**English L1 groups**
+
+English L1 Spanish L2 L3 German (shadow)
+
+English L1 Spanish L2 L3 French (shadow)
+
+English L1 German L2 (shadow) 
+
+English L1 French L2 (shadow)
+
+500 total participants, that must also be proficient enough in L1 and L2 - yikes. 
+For the pilot, nearly 41% of participants were discluded. 

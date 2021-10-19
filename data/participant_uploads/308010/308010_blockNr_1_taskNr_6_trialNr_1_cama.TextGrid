@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9651545457807118 
+            xmax = 0.9648830367393803 
             text = "" 
         intervals [2]:
-            xmin = 0.9651545457807118 
-            xmax = 1.346 
+            xmin = 0.9648830367393803 
+            xmax = 1.3385144431687719 
             text = "cama" 
         intervals [3]:
-            xmin = 1.346 
+            xmin = 1.3385144431687719 
             xmax = 2.048 
             text = "" 
     item [2]:
@@ -29,17 +29,21 @@ item []:
         name = "KAN-MAU" 
         xmin = 0 
         xmax = 2.048 
-        intervals: size = 3 
+        intervals: size = 4 
         intervals [1]:
             xmin = 0 
-            xmax = 0.956 
+            xmax = 0.92 
             text = "" 
         intervals [2]:
-            xmin = 0.956 
-            xmax = 1.346 
-            text = "k a m a" 
+            xmin = 0.92 
+            xmax = 1.024 
+            text = "k Q m V" 
         intervals [3]:
-            xmin = 1.346 
+            xmin = 1.024 
+            xmax = 1.27 
+            text = "" 
+        intervals [4]:
+            xmin = 1.27 
             xmax = 2.048 
             text = "" 
     item [3]:
@@ -50,25 +54,25 @@ item []:
         intervals: size = 6 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9651545457807118 
+            xmax = 0.9648830367393803 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.9651545457807118 
-            xmax = 1.0085159120264064 
+            xmin = 0.9648830367393803 
+            xmax = 1.007541245694604 
             text = "k" 
         intervals [3]:
-            xmin = 1.0085159120264064 
-            xmax = 1.096 
-            text = "a" 
+            xmin = 1.007541245694604 
+            xmax = 1.1 
+            text = "Q " 
         intervals [4]:
-            xmin = 1.096 
-            xmax = 1.196 
+            xmin = 1.1 
+            xmax = 1.19 
             text = "m" 
         intervals [5]:
-            xmin = 1.196 
-            xmax = 1.346 
-            text = "a" 
+            xmin = 1.19 
+            xmax = 1.27 
+            text = "V" 
         intervals [6]:
-            xmin = 1.346 
+            xmin = 1.27 
             xmax = 2.048 
             text = "<p:>" 

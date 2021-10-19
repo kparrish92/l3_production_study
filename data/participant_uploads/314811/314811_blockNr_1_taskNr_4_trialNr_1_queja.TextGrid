@@ -2,49 +2,49 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 3.136000
+xmax = 3.136 
 tiers? <exists> 
-size = 3
-item []:
+size = 3 
+item []: 
     item [1]:
-        class = "IntervalTier"
-        name = "ORT-MAU"
-        xmin = 0
-        xmax = 3.136000
-        intervals: size = 1
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 3.136 
+        intervals: size = 1 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 3.136000
-            text = "queja"
+            xmin = 0 
+            xmax = 3.136 
+            text = "queja" 
     item [2]:
-        class = "IntervalTier"
-        name = "KAN-MAU"
-        xmin = 0
-        xmax = 3.136000
-        intervals: size = 1
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 3.136 
+        intervals: size = 1 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 3.136000
-            text = "k @ Z a"
+            xmin = 0 
+            xmax = 3.136 
+            text = "k @ Z a" 
     item [3]:
-        class = "IntervalTier"
-        name = "MAU"
-        xmin = 0
-        xmax = 3.136000
-        intervals: size = 4
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 3.136 
+        intervals: size = 4 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.070000
-            text = "k"
+            xmin = 0 
+            xmax = 0.07 
+            text = "k" 
         intervals [2]:
-            xmin = 0.070000
-            xmax = 0.100000
-            text = "@"
+            xmin = 0.07 
+            xmax = 0.1 
+            text = "@" 
         intervals [3]:
-            xmin = 0.100000
-            xmax = 0.130000
-            text = "Z"
+            xmin = 0.1 
+            xmax = 0.13 
+            text = "Z" 
         intervals [4]:
-            xmin = 0.130000
-            xmax = 3.136000
-            text = "a"
+            xmin = 0.13 
+            xmax = 3.136 
+            text = "a" 

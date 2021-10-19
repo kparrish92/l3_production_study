@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 2.315147971082089 
+            xmax = 2.3157722086681978 
             text = "" 
         intervals [2]:
-            xmin = 2.315147971082089 
-            xmax = 2.566 
+            xmin = 2.3157722086681978 
+            xmax = 2.528413181687715 
             text = "tiro" 
         intervals [3]:
-            xmin = 2.566 
+            xmin = 2.528413181687715 
             xmax = 3.242667 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 2.276 
+            xmax = 2.25 
             text = "" 
         intervals [2]:
-            xmin = 2.276 
-            xmax = 2.566 
-            text = "t i r o" 
+            xmin = 2.25 
+            xmax = 2.59 
+            text = "t I R @U" 
         intervals [3]:
-            xmin = 2.566 
+            xmin = 2.59 
             xmax = 3.242667 
             text = "" 
     item [3]:
@@ -50,25 +50,25 @@ item []:
         intervals: size = 6 
         intervals [1]:
             xmin = 0 
-            xmax = 2.315147971082089 
+            xmax = 2.3157722086681978 
             text = "<p:>" 
         intervals [2]:
-            xmin = 2.315147971082089 
-            xmax = 2.349133906788174 
+            xmin = 2.3157722086681978 
+            xmax = 2.3468283223306545 
             text = "t" 
         intervals [3]:
-            xmin = 2.349133906788174 
-            xmax = 2.396 
-            text = "i" 
+            xmin = 2.3468283223306545 
+            xmax = 2.41 
+            text = "I" 
         intervals [4]:
-            xmin = 2.396 
-            xmax = 2.446 
-            text = "r" 
+            xmin = 2.41 
+            xmax = 2.44 
+            text = "R" 
         intervals [5]:
-            xmin = 2.446 
-            xmax = 2.566 
-            text = "o" 
+            xmin = 2.44 
+            xmax = 2.59 
+            text = "@U" 
         intervals [6]:
-            xmin = 2.566 
+            xmin = 2.59 
             xmax = 3.242667 
             text = "<p:>" 

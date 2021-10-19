@@ -1,14 +1,15 @@
 library(here)
 library(tidyverse)
+library(stringr)
 
-file_names  <- list.files(path= here("data", "participant_uploads"),
+file_names  <- list.files(path= here("data", "mono_uploads"),
                          recursive=T,
                          pattern=".wav"
                          ,full.names=T) %>% 
   as.data.frame() %>% 
   rename(file = ".") %>% 
   mutate(file = str_remove(file, 
-                        "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/participant_uploads/"),
+                        "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/mono_uploads/"),
         file = str_remove(file, ".wav")) 
 
 file_names$word <- file_names$file
@@ -28,7 +29,7 @@ file_names_tidy <- file_names %>%
 for(thisRun in 1:nrow(file_names_tidy))
 {
   filename <- file_names_tidy$file[thisRun]  
-  direc <- paste("data/participant_uploads/", file_names_tidy$participant[thisRun], "/", sep = "")
+  direc <- paste("data/all_uploads_mono/", "/", sep = "")
   end <- ".txt"
   path <- paste0(direc,filename,end)
   fileConn<-file(paste0(path))

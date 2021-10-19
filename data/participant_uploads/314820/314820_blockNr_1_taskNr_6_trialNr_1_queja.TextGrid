@@ -2,73 +2,73 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 2.133333
+xmax = 2.133333 
 tiers? <exists> 
-size = 3
-item []:
+size = 3 
+item []: 
     item [1]:
-        class = "IntervalTier"
-        name = "ORT-MAU"
-        xmin = 0
-        xmax = 2.133333
-        intervals: size = 3
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 2.133333 
+        intervals: size = 3 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.590000
-            text = ""
+            xmin = 0 
+            xmax = 0.6580277123995407 
+            text = "" 
         intervals [2]:
-            xmin = 0.590000
-            xmax = 1.140000
-            text = "queja"
+            xmin = 0.6580277123995407 
+            xmax = 1.14 
+            text = "queja" 
         intervals [3]:
-            xmin = 1.140000
-            xmax = 2.133333
-            text = ""
+            xmin = 1.14 
+            xmax = 2.133333 
+            text = "" 
     item [2]:
-        class = "IntervalTier"
-        name = "KAN-MAU"
-        xmin = 0
-        xmax = 2.133333
-        intervals: size = 3
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 2.133333 
+        intervals: size = 3 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.590000
-            text = ""
+            xmin = 0 
+            xmax = 0.59 
+            text = "" 
         intervals [2]:
-            xmin = 0.590000
-            xmax = 1.140000
-            text = "k @ Z a"
+            xmin = 0.59 
+            xmax = 1.14 
+            text = "k @ Z a" 
         intervals [3]:
-            xmin = 1.140000
-            xmax = 2.133333
-            text = ""
+            xmin = 1.14 
+            xmax = 2.133333 
+            text = "" 
     item [3]:
-        class = "IntervalTier"
-        name = "MAU"
-        xmin = 0
-        xmax = 2.133333
-        intervals: size = 6
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 2.133333 
+        intervals: size = 6 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.590000
-            text = "<p:>"
+            xmin = 0 
+            xmax = 0.6580277123995407 
+            text = "<p:>" 
         intervals [2]:
-            xmin = 0.590000
-            xmax = 0.710000
-            text = "k"
+            xmin = 0.6580277123995407 
+            xmax = 0.6991624138920781 
+            text = "k" 
         intervals [3]:
-            xmin = 0.710000
-            xmax = 0.800000
-            text = "@"
+            xmin = 0.6991624138920781 
+            xmax = 0.8 
+            text = "@" 
         intervals [4]:
-            xmin = 0.800000
-            xmax = 0.960000
-            text = "Z"
+            xmin = 0.8 
+            xmax = 0.96 
+            text = "Z" 
         intervals [5]:
-            xmin = 0.960000
-            xmax = 1.140000
-            text = "a"
+            xmin = 0.96 
+            xmax = 1.14 
+            text = "a" 
         intervals [6]:
-            xmin = 1.140000
-            xmax = 2.133333
-            text = "<p:>"
+            xmin = 1.14 
+            xmax = 2.133333 
+            text = "<p:>" 

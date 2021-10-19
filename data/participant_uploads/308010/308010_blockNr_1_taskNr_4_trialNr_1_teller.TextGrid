@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9771132643524738 
+            xmax = 0.9779914645522385 
             text = "" 
         intervals [2]:
-            xmin = 0.9771132643524738 
-            xmax = 1.486 
+            xmin = 0.9779914645522385 
+            xmax = 1.46 
             text = "teller" 
         intervals [3]:
-            xmin = 1.486 
+            xmin = 1.46 
             xmax = 2.56 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.956 
+            xmax = 0.95 
             text = "" 
         intervals [2]:
-            xmin = 0.956 
-            xmax = 1.486 
-            text = "t e L e r" 
+            xmin = 0.95 
+            xmax = 1.46 
+            text = "t E l 3`" 
         intervals [3]:
-            xmin = 1.486 
+            xmin = 1.46 
             xmax = 2.56 
             text = "" 
     item [3]:
@@ -47,32 +47,28 @@ item []:
         name = "MAU" 
         xmin = 0 
         xmax = 2.56 
-        intervals: size = 7 
+        intervals: size = 6 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9771128229055641 
+            xmax = 0.9779914645522385 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.9771128229055641 
-            xmax = 1.0817456767497737 
+            xmin = 0.9779914645522385 
+            xmax = 1.0842561100746266 
             text = "t" 
         intervals [3]:
-            xmin = 1.0817456767497737 
-            xmax = 1.102319465704299 
-            text = "e" 
+            xmin = 1.0842561100746266 
+            xmax = 1.15 
+            text = "E" 
         intervals [4]:
-            xmin = 1.102319465704299 
-            xmax = 1.1170150292432457 
-            text = "L" 
+            xmin = 1.15 
+            xmax = 1.27 
+            text = "l" 
         intervals [5]:
-            xmin = 1.1170150292432457 
-            xmax = 1.136 
-            text = "e" 
+            xmin = 1.27 
+            xmax = 1.46 
+            text = "3`" 
         intervals [6]:
-            xmin = 1.136 
-            xmax = 1.486 
-            text = "r" 
-        intervals [7]:
-            xmin = 1.486 
+            xmin = 1.46 
             xmax = 2.56 
             text = "<p:>" 

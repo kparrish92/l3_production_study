@@ -1,0 +1,288 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, res = 600)
+```
+
+```{r, echo = FALSE}
+library(here)
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+source(here::here("scripts", "07_small_data.R"))
+
+# load participants 
+participants <- read.csv(here::here("data", "tidy", "participant_count.csv"))
+
+# load data 
+l1_df <- read.csv(here::here("data", "tidy", "non_l2_subset.csv"))
+l2_df <- read.csv(here::here("data", "tidy", "l2_subset.csv"))
+tidy_df <- rbind(l1_df, l2_df)
+all_desc_df <- read.csv(here("data", "tidy", "all_desc.csv"))
+
+# load models
+mod0 <- readRDS(here("data", "models", "full_model.RDS"))
+model1 <- readRDS(here("data", "models", "l2_sub_model.RDS"))
+model2 <- readRDS(here("data", "models", "l1_sub_model.RDS"))
+
+# load nested model comps 
+nmc_f <- read.csv(here("data", "tidy", "nmc_full.csv"))
+nmc_l1 <- read.csv(here("data", "tidy", "nmc_l1.csv"))
+nmc_l2 <- read.csv(here("data", "tidy", "nmc_l2.csv"))
+
+# load r_squared df 
+r_dq_df <- read.csv(here("data", "tidy", "r_sq_df.csv"))
+
+fm_2rm <- r_dq_df$R2m[1] %>% round(digits = 3)*100 # model full r2m
+l2_r2m <- r_dq_df$R2m[2] %>% round(digits = 3)*100 # model l2 r2m
+l1_r2m <- r_dq_df$R2m[3] %>% round(digits = 3)*100 # model l1 r2m
+
+fm_2rc <- r_dq_df$R2c[1] %>% round(digits = 3)*100 # model full r2c
+l2_r2c <- r_dq_df$R2c[2] %>% round(digits = 3)*100 # model l2 r2c
+l1_r2c <- r_dq_df$R2c[3] %>% round(digits = 3)*100 # model l1 r2c
+
+# make fixed effects a df 
+mod0_fix_ef <- fixef(mod0) %>% 
+  as.data.frame() # full df 
+
+mod1_fix_ef <- fixef(model1) %>% 
+  as.data.frame() # L2 subset 
+ 
+mod2_fix_ef <- fixef(model2) %>% 
+  as.data.frame() # L1 subset 
+
+
+# full model effects 
+full_fr <- mod0_fix_ef$.[2] %>% round(digit = 2) # fr
+full_sp <- mod0_fix_ef$.[3] %>% round(digit = 2) # sp
+
+# l2 effects 
+l2_fr <- mod1_fix_ef$.[2] %>% round(digit = 2) # fr
+l2_sp <- mod1_fix_ef$.[3] %>% round(digit = 2) # sp
+
+# l1 effects 
+l1_fr <- mod2_fix_ef$.[2] %>% round(digit = 2) # fr
+l1_sp <- mod2_fix_ef$.[3] %>% round(digit = 2) # sp
+
+participants <- read.csv(here::here("data", "tidy", "participant_count.csv"))
+total_participants <- sum(participants$l2_subset_no, participants$non_l2_no, participants$dqed_no)
+
+total_participants_q <- sum(participants$l2_subset_no, participants$non_l2_no)
+
+stim_df <- read.csv(here("data", "tidy", "stim.csv"))
+
+power_df <- read.csv(here("data", "tidy", "powerdf.csv"))
+
+
+```
+
+```{r}
+# participants desc 
+# get data from labvanced 
+```
+ 
+
+# Tables 
+
+```{r}
+data.frame(Spanish = c("tiro", "tema", "talla", "quiso", "queja", "cama", "piso", "pena", "pato"),
+English = c("tipping", "teller", "tacky", "penny" , "pass", "parrot", "kitten", "kennel", "cabbage"),
+French = c("tir", "terre", "tasse", "quitte", "quelle", "pile", "pere", "patte", "")) %>% 
+  knitr::kable()
+
+```
+
+```{r}
+filt_bio <- bio_data %>% 
+  filter(participant %in% all_df$participant)
+
+data.frame("Factor" = c("AoA", "Current age", "Proficiency"),
+           "Mean" = c(mean(filt_bio$age), mean(filt_bio$current_age), mean(filt_bio$self_prof)),
+           "SD" = c(sd(filt_bio$age), sd(filt_bio$current_age), sd(filt_bio$self_prof))) %>% 
+  knitr::kable(digits = 2, caption = "Table 1: Descriptive participant data")
+
+```
+
+```{r}
+tidy_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "k") %>% 
+  rename("Segment" = text) %>% 
+  rename("Language" = language) %>% 
+  knitr::kable(digits = 3, caption = "Table 2: Descriptive Relative VOT for /k/ per language")
+```
+
+```{r}
+tidy_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "t") %>% 
+  rename("Segment" = text) %>% 
+  rename("Language" = language) %>% 
+  knitr::kable(digits = 3, caption = "Table 3: Descriptive Relative VOT for /t/ per language")
+```
+
+```{r}
+tidy_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "p") %>% 
+  rename("Segment" = text) %>% 
+  rename("Language" = language) %>% 
+  knitr::kable(digits = 3, caption = "Table 4: Descriptive Relative VOT for /p/ per language")
+  
+```
+
+```{r}
+tidy_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>%
+  rename("Language" = language) %>% 
+  knitr::kable(digits = 3, caption = "Table 5: Descriptive pooled Relative VOT per language")
+
+```
+
+```{r}
+tab_model(mod0, title = "Table 6: Linear Regression of the full data set")
+```
+
+```{r}
+l2_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  rename("Language" = language) %>%
+  knitr::kable(digits = 3, caption = "Table 7: L2 subset Descriptive pooled Relative VOT per language")
+```
+
+```{r}
+tab_model(model1, title = "Table 8: Linear Regression of the L2 data subset")
+```
+
+```{r}
+l1_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  rename("Language" = language) %>% 
+  knitr::kable(digits = 3, caption = "Table 9: L1 subset Descriptive pooled Relative VOT per language")
+```
+
+```{r}
+tab_model(model2, title = "Table 10: Linear Regression of the L1 data subset")
+```
+
+
+# Figures 
+
+```{r, res=600}
+tidy_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3) 
+```
+
+**Figure 2: French-English Test of Equivalence of the full dataset.**
+```{r}
+# tost of full dataset
+tidy_df_fr <- tidy_df %>% 
+  filter(language == "french")
+
+tidy_df_en <- tidy_df %>% 
+  filter(language == "english")
+
+TOSTER::TOSTtwo(m1 = mean(tidy_df_fr$relative_vot),
+                m2 = mean(tidy_df_en$relative_vot),
+                sd1 = sd(tidy_df_fr$relative_vot),
+                sd2 = sd(tidy_df_en$relative_vot),
+                n1 = length(unique(tidy_df_fr$participant)),
+                n2 = length(unique(tidy_df_fr$participant)),
+                low_eqbound_d = -.4,
+                high_eqbound_d = .4)
+```
+
+
+```{r, res=600}
+l2_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3) 
+```
+
+**Figure 4: French-English Test of Equivalence of the L2 dataset.**
+```{r}
+# L2 sub eng-fren tost 
+l2_subset_df <- l2_df
+l2_subset_df_fr <- l2_subset_df %>% 
+  filter(language == "french")
+l2_subset_df_en <- l2_subset_df %>% 
+  filter(language == "english")
+
+# TOST to see whether a subset of participants are practically equivalent with
+# eng and french 
+
+TOSTER::TOSTpaired(n = length(unique(l2_subset_df$participant)), 
+                   m1 = mean(l2_subset_df_fr$relative_vot), 
+                   m2 = mean(l2_subset_df_en$relative_vot), 
+                   sd1 = sd(l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(l2_subset_df_en$relative_vot),
+                   r12 = .44, # use mean df to find cor 
+                   low_eqbound_dz = -.4, 
+                   high_eqbound_dz = .4)
+
+
+```
+
+```{r, res=600}
+l1_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3) 
+```
+
+**Figure 6: French-Spanish Test of Equivalence of the L1 dataset.**
+```{r}
+# L1 sub Span-fren tost 
+non_l2_subset_df_fr <- l1_df %>% 
+  filter(language == "french")
+non_l2_subset_df_sp <- l1_df %>% 
+  filter(language == "spanish")
+
+TOSTER::TOSTpaired(n = length(unique(l1_df$participant)), 
+                   m1 = mean(non_l2_subset_df_fr$relative_vot), 
+                   m2 = mean(non_l2_subset_df_sp$relative_vot), 
+                   sd1 = sd(non_l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(non_l2_subset_df_sp$relative_vot),
+                   r12 = .44, # use mean df to find cor - change to nonpaired
+                   low_eqbound_dz = -.4, 
+                   high_eqbound_dz = .4)
+```
+
+
+```{r, include=FALSE} 
+all_desc_df %>% # effect sizes - add if there is room
+  knitr::kable(digits = 3, caption = "Effect sizes of each subset per language pairing")
+```
+
+
+```{r, fig.height = 7, fig.width = 12, include=FALSE}
+all_desc_df %>% # effect sizes - add if there is room
+  ggplot(aes(x = eff_size, y = set, shape = pair)) + geom_point(aes(shape = pair, pch = 21, size = 4, fill = "white", colour = "black")) +
+  geom_linerange(aes(xmin = ci_low, xmax = ci_hi)) +
+  geom_vline(xintercept = 0) + geom_vline(xintercept = .4, linetype = "dashed", alpha = .5) +
+  geom_vline(xintercept = -.4, linetype = "dashed", alpha = .5) +
+  geom_rect(aes(xmin = -.4, xmax = .4, ymin = 0, ymax = 5),
+            alpha = .05) +
+    geom_rect(aes(xmin = -.7, xmax = .7, ymin = 0, ymax = 5),
+            alpha = .025) +
+    geom_rect(aes(xmin = -1, xmax = 1, ymin = 0, ymax = 5), 
+            alpha = .01) +
+  ggtitle("Effect sizes per dataset and language pairing") 
+
+```
+
+```{r, include = FALSE}
+all_desc_df %>% # effect sizes - add if there is room
+  ggplot(aes(x = eff_size, y = set, color = pair)) + geom_point() +
+  geom_linerange(aes(xmin = ci_low, xmax = ci_hi)) + 
+  geom_tile(aes(width = -.4 - .4),
+            alpha = 0.2, height = Inf, fill = "#31688EFF")
+```
+
+```{r}
+power_df %>% 
+  dplyr::select(power, subset, pairing) %>% 
+  knitr::kable()
+
+```

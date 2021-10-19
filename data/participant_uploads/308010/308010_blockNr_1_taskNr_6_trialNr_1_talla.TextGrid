@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8196962901836969 
+            xmax = 0.8200885835246843 
             text = "" 
         intervals [2]:
-            xmin = 0.8196962901836969 
-            xmax = 1.066 
+            xmin = 0.8200885835246843 
+            xmax = 1.05 
             text = "talla" 
         intervals [3]:
-            xmin = 1.066 
+            xmin = 1.05 
             xmax = 1.194667 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.786 
+            xmax = 0.79 
             text = "" 
         intervals [2]:
-            xmin = 0.786 
-            xmax = 1.066 
-            text = "t a L a" 
+            xmin = 0.79 
+            xmax = 1.05 
+            text = "t { l V" 
         intervals [3]:
-            xmin = 1.066 
+            xmin = 1.05 
             xmax = 1.194667 
             text = "" 
     item [3]:
@@ -50,25 +50,25 @@ item []:
         intervals: size = 6 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8196962901836969 
+            xmax = 0.820264372847302 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.8196962901836969 
-            xmax = 0.8388040956913776 
+            xmin = 0.820264372847302 
+            xmax = 0.838370673076923 
             text = "t" 
         intervals [3]:
-            xmin = 0.8388040956913776 
-            xmax = 0.946 
-            text = "a" 
+            xmin = 0.838370673076923 
+            xmax = 0.91 
+            text = "{" 
         intervals [4]:
-            xmin = 0.946 
-            xmax = 0.976 
-            text = "L" 
+            xmin = 0.91 
+            xmax = 0.97 
+            text = "l" 
         intervals [5]:
-            xmin = 0.976 
-            xmax = 1.066 
-            text = "a" 
+            xmin = 0.97 
+            xmax = 1.05 
+            text = "V" 
         intervals [6]:
-            xmin = 1.066 
+            xmin = 1.05 
             xmax = 1.194667 
             text = "<p:>" 

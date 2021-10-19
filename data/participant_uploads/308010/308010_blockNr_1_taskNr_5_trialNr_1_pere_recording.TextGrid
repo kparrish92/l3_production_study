@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8176102471483239 
+            xmax = 0.8172208632319173 
             text = "" 
         intervals [2]:
-            xmin = 0.8176102471483239 
-            xmax = 1.236 
+            xmin = 0.8172208632319173 
+            xmax = 1.25 
             text = "pere" 
         intervals [3]:
-            xmin = 1.236 
+            xmin = 1.25 
             xmax = 1.536 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.776 
+            xmax = 0.78 
             text = "" 
         intervals [2]:
-            xmin = 0.776 
-            xmax = 1.236 
-            text = "p e r e" 
+            xmin = 0.78 
+            xmax = 1.25 
+            text = "p 3`" 
         intervals [3]:
-            xmin = 1.236 
+            xmin = 1.25 
             xmax = 1.536 
             text = "" 
     item [3]:
@@ -47,28 +47,20 @@ item []:
         name = "MAU" 
         xmin = 0 
         xmax = 1.536 
-        intervals: size = 6 
+        intervals: size = 4 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8176102471483239 
+            xmax = 0.8172208632319173 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.8176102471483239 
-            xmax = 0.8731193048738118 
+            xmin = 0.8172208632319173 
+            xmax = 0.8729753767221585 
             text = "p" 
         intervals [3]:
-            xmin = 0.8731193048738118 
-            xmax = 0.978821017508611 
-            text = "e" 
+            xmin = 0.8729753767221585 
+            xmax = 1.25 
+            text = "3`" 
         intervals [4]:
-            xmin = 0.978821017508611 
-            xmax = 1.126 
-            text = "r" 
-        intervals [5]:
-            xmin = 1.126 
-            xmax = 1.236 
-            text = "e" 
-        intervals [6]:
-            xmin = 1.236 
+            xmin = 1.25 
             xmax = 1.536 
             text = "<p:>" 

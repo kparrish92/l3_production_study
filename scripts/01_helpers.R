@@ -92,4 +92,47 @@ biphon_prob <- function(word, corpus)
   return(log_prob)
 }
 
+# function to run t.tests on french and english productions 
+fren_eng_t = function(sub_df, participant_no)
+{
+  ttest_df_eng <- sub_df %>% 
+    filter(participant == participant_no) %>% 
+    filter(language == "english")
+  
+  ttest_df_fren <- sub_df %>% 
+    filter(participant == participant_no) %>% 
+    filter(language == "french")
+  
+  test <- t.test(ttest_df_eng$relative_vot, ttest_df_fren$relative_vot)
+  return(test$p.value)
+}
 
+# function to run t.tests on french and spanish productions 
+fren_span_t = function(sub_df, participant_no)
+{
+  ttest_df_span <- sub_df %>% 
+    filter(participant == participant_no) %>% 
+    filter(language == "spanish")
+  
+  ttest_df_fren <- sub_df %>% 
+    filter(participant == participant_no) %>% 
+    filter(language == "french")
+  
+  test <- t.test(ttest_df_span$relative_vot, ttest_df_fren$relative_vot)
+  return(test$p.value)
+}
+
+# function to run t.tests on english and spanish productions 
+eng_span_t = function(sub_df, participant_no)
+{
+  ttest_df_span <- sub_df %>% 
+    filter(participant == participant_no) %>% 
+    filter(language == "spanish")
+  
+  ttest_df_eng <- sub_df %>% 
+    filter(participant == participant_no) %>%  
+    filter(language == "english")
+  
+  test <- t.test(ttest_df_span$relative_vot, ttest_df_eng$relative_vot)
+  return(test$p.value)
+}

@@ -2,73 +2,73 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 3.328000
+xmax = 3.328 
 tiers? <exists> 
-size = 3
-item []:
+size = 3 
+item []: 
     item [1]:
-        class = "IntervalTier"
-        name = "ORT-MAU"
-        xmin = 0
-        xmax = 3.328000
-        intervals: size = 3
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 3.328 
+        intervals: size = 3 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.010000
-            text = ""
+            xmin = 0 
+            xmax = 0.01 
+            text = "" 
         intervals [2]:
-            xmin = 0.010000
-            xmax = 3.150000
-            text = "cama"
+            xmin = 0.01 
+            xmax = 3.15 
+            text = "" 
         intervals [3]:
-            xmin = 3.150000
-            xmax = 3.328000
-            text = ""
+            xmin = 3.15 
+            xmax = 3.328 
+            text = "" 
     item [2]:
-        class = "IntervalTier"
-        name = "KAN-MAU"
-        xmin = 0
-        xmax = 3.328000
-        intervals: size = 3
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 3.328 
+        intervals: size = 3 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.010000
-            text = ""
+            xmin = 0 
+            xmax = 0.01 
+            text = "" 
         intervals [2]:
-            xmin = 0.010000
-            xmax = 3.150000
-            text = "k a m a"
+            xmin = 0.01 
+            xmax = 3.15 
+            text = "k a m a" 
         intervals [3]:
-            xmin = 3.150000
-            xmax = 3.328000
-            text = ""
+            xmin = 3.15 
+            xmax = 3.328 
+            text = "" 
     item [3]:
-        class = "IntervalTier"
-        name = "MAU"
-        xmin = 0
-        xmax = 3.328000
-        intervals: size = 6
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 3.328 
+        intervals: size = 6 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.010000
-            text = "<p:>"
+            xmin = 0 
+            xmax = 0.01 
+            text = "<p:>" 
         intervals [2]:
-            xmin = 0.010000
-            xmax = 0.110000
-            text = "k"
+            xmin = 0.01 
+            xmax = 0.11 
+            text = "k" 
         intervals [3]:
-            xmin = 0.110000
-            xmax = 2.340000
-            text = "a"
+            xmin = 0.11 
+            xmax = 2.34 
+            text = "a" 
         intervals [4]:
-            xmin = 2.340000
-            xmax = 2.450000
-            text = "m"
+            xmin = 2.34 
+            xmax = 2.45 
+            text = "m" 
         intervals [5]:
-            xmin = 2.450000
-            xmax = 3.150000
-            text = "a"
+            xmin = 2.45 
+            xmax = 3.15 
+            text = "a" 
         intervals [6]:
-            xmin = 3.150000
-            xmax = 3.328000
-            text = "<p:>"
+            xmin = 3.15 
+            xmax = 3.328 
+            text = "<p:>" 

@@ -2,49 +2,49 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 0.661333
+xmax = 0.661333 
 tiers? <exists> 
-size = 3
-item []:
+size = 3 
+item []: 
     item [1]:
-        class = "IntervalTier"
-        name = "ORT-MAU"
-        xmin = 0
-        xmax = 0.661333
-        intervals: size = 1
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 0.661333 
+        intervals: size = 1 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.661333
-            text = "tiro"
+            xmin = 0 
+            xmax = 0.661333 
+            text = "tiro" 
     item [2]:
-        class = "IntervalTier"
-        name = "KAN-MAU"
-        xmin = 0
-        xmax = 0.661333
-        intervals: size = 1
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 0.661333 
+        intervals: size = 1 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.661333
-            text = "t i R o"
+            xmin = 0 
+            xmax = 0.661333 
+            text = "t i R o" 
     item [3]:
-        class = "IntervalTier"
-        name = "MAU"
-        xmin = 0
-        xmax = 0.661333
-        intervals: size = 4
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 0.661333 
+        intervals: size = 4 
         intervals [1]:
-            xmin = 0.000000
-            xmax = 0.070000
-            text = "t"
+            xmin = 0 
+            xmax = 0.07 
+            text = "t" 
         intervals [2]:
-            xmin = 0.070000
-            xmax = 0.110000
-            text = "i"
+            xmin = 0.07 
+            xmax = 0.11 
+            text = "i" 
         intervals [3]:
-            xmin = 0.110000
-            xmax = 0.600000
-            text = "R"
+            xmin = 0.11 
+            xmax = 0.6 
+            text = "R" 
         intervals [4]:
-            xmin = 0.600000
-            xmax = 0.661333
-            text = "o"
+            xmin = 0.6 
+            xmax = 0.661333 
+            text = "o" 

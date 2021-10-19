@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9449425761601381 
+            xmax = 0.9462687713705245 
             text = "" 
         intervals [2]:
-            xmin = 0.9449425761601381 
-            xmax = 1.446 
+            xmin = 0.9462687713705245 
+            xmax = 1.43 
             text = "tasse" 
         intervals [3]:
-            xmin = 1.446 
+            xmin = 1.43 
             xmax = 2.389333 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.906 
+            xmax = 0.91 
             text = "" 
         intervals [2]:
-            xmin = 0.906 
-            xmax = 1.446 
-            text = "t a s e" 
+            xmin = 0.91 
+            xmax = 1.43 
+            text = "t Q s" 
         intervals [3]:
-            xmin = 1.446 
+            xmin = 1.43 
             xmax = 2.389333 
             text = "" 
     item [3]:
@@ -47,28 +47,24 @@ item []:
         name = "MAU" 
         xmin = 0 
         xmax = 2.389333 
-        intervals: size = 6 
+        intervals: size = 5 
         intervals [1]:
             xmin = 0 
-            xmax = 0.9449425761601381 
+            xmax = 0.9462687713705245 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.9449425761601381 
-            xmax = 0.9671919340415338 
+            xmin = 0.9462687713705245 
+            xmax = 0.9670408677386483 
             text = "t" 
         intervals [3]:
-            xmin = 0.9671919340415338 
-            xmax = 1.156 
-            text = "a" 
+            xmin = 0.9670408677386483 
+            xmax = 1.15 
+            text = "Q" 
         intervals [4]:
-            xmin = 1.156 
-            xmax = 1.416 
+            xmin = 1.15 
+            xmax = 1.43 
             text = "s" 
         intervals [5]:
-            xmin = 1.416 
-            xmax = 1.446 
-            text = "e" 
-        intervals [6]:
-            xmin = 1.446 
+            xmin = 1.43 
             xmax = 2.389333 
             text = "<p:>" 

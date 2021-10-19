@@ -1,1 +1,0 @@
-quest<-read.csv("data/questionnaire/data.csv")

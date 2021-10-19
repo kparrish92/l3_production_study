@@ -14,14 +14,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.953018110724912 
+            xmax = 0.9566284084385762 
             text = "" 
         intervals [2]:
-            xmin = 0.953018110724912 
-            xmax = 1.516 
+            xmin = 0.9566284084385762 
+            xmax = 1.56 
             text = "tipping" 
         intervals [3]:
-            xmin = 1.516 
+            xmin = 1.56 
             xmax = 1.877333 
             text = "" 
     item [2]:
@@ -32,14 +32,14 @@ item []:
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 1.006 
+            xmax = 0.96 
             text = "" 
         intervals [2]:
-            xmin = 1.006 
-            xmax = 1.516 
-            text = "t i p i N g" 
+            xmin = 0.96 
+            xmax = 1.56 
+            text = "t I p I N" 
         intervals [3]:
-            xmin = 1.516 
+            xmin = 1.56 
             xmax = 1.877333 
             text = "" 
     item [3]:
@@ -47,36 +47,32 @@ item []:
         name = "MAU" 
         xmin = 0 
         xmax = 1.877333 
-        intervals: size = 8 
+        intervals: size = 7 
         intervals [1]:
             xmin = 0 
-            xmax = 0.953018110724912 
+            xmax = 0.9566284084385762 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.953018110724912 
-            xmax = 1.046 
+            xmin = 0.9566284084385762 
+            xmax = 1.0556563935132033 
             text = "t" 
         intervals [3]:
-            xmin = 1.046 
-            xmax = 1.096 
-            text = "i" 
+            xmin = 1.0556563935132033 
+            xmax = 1.15 
+            text = "I" 
         intervals [4]:
-            xmin = 1.096 
-            xmax = 1.216 
+            xmin = 1.15 
+            xmax = 1.18 
             text = "p" 
         intervals [5]:
-            xmin = 1.216 
-            xmax = 1.246 
-            text = "i" 
+            xmin = 1.18 
+            xmax = 1.32 
+            text = "I" 
         intervals [6]:
-            xmin = 1.246 
-            xmax = 1.406 
+            xmin = 1.32 
+            xmax = 1.56 
             text = "N" 
         intervals [7]:
-            xmin = 1.406 
-            xmax = 1.516 
-            text = "g" 
-        intervals [8]:
-            xmin = 1.516 
+            xmin = 1.56 
             xmax = 1.877333 
             text = "<p:>" 

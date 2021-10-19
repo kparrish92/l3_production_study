@@ -50,99 +50,31 @@ tidy_df <- df2 %>%
   mutate(vot_ms = vot*1000)
 
 
-tidy_df %>% 
-  write.csv(here("data", "tidy", "tidy_df.csv"))
-
-
 # segmented participants 
 
-participants <- c(307935, 307937, 307938, 307939, 307942, 
-                  307943, 307945, 307949, 307964, 307982,
-                  307983, 307986, 307996, 308010, 308018, 
-                  308427, 313303, 314727, 314744, 314747,
-                  314748, 314752, 314753, 314755, 314759,
-                  314760, 314761, 314763, 314767, 314768,
-                  314772, 314773, 314774, 314778, 314779,
-                  314784, 314785, 314786, 314788, 314789)
-
-# check 307999
+participants <- c(307935, 307937, 307938, 307939, 307940, 
+                  307942, 307943, 307944, 307945, 307949, 
+                  307953, 307964, 307982, 307983, 307986, 
+                  307995, 307996, 307999, 308010, 308018, 
+                  308379, 308427, 311348, 313303, 314727, 
+                  314744, 314747, 314748, 314752, 314753, 
+                  314755, 314759, 314760, 314761, 314763, 
+                  314767, 314768, 314772, 314773, 314774, 
+                  314778, 314779, 314784, 314785, 314786, 
+                  314788, 314789, 314792, 314794, 314795, 
+                  314796, 314798, 314799, 314800, 314801, 
+                  314803, 314804, 314805, 314806, 314809, 
+                  314810, 314812, 314813, 314814, 314815, 
+                  314817, 314819, 314820, 314821, 314822, 
+                  314825, 314826, 314828, 314829, 314830, 
+                  314831, 314833, 314834, 314836, 314837, 
+                  314838, 314839, 314841, 314845, 314847, 
+                  314848, 314849, 314854, 314860, 314861, 
+                  314864)
 
 subset_df <- tidy_df %>% 
   filter(participant %in% participants) %>% 
   filter(!is.na(language))
-  
 
 subset_df %>% 
   write.csv(here("data", "tidy", "subset_df.csv"))
-
-# box plots 
-## relative vot 
-subset_df %>% 
-  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot()
-
-## absolute vot 
-subset_df %>% 
-  ggplot(aes(x = vot, y = language)) + geom_boxplot()
-
- 
-desc_df <- subset_df %>% 
-  group_by(language, text) %>% 
-  summarise(mean = mean(relative_vot), sd = sd(relative_vot))
-
-unique(subset_df$participant)
-
-abs_df <- subset_df %>% 
-  group_by(language, text) %>% 
-  summarise(mean = mean(vot), sd = sd(vot))
-
-
-
-# absolute vot - small es = 11ms, med es = 20ms 
-# fren span 
-TOSTER::TOSTpaired(n = 75, m1 = abs_df$mean[2], m2 = abs_df$mean[1], 
-                   sd1 = abs_df$sd[2], sd2 = abs_df$sd[1],
-                   r12 = .5, low_eqbound_dz = -.4, high_eqbound_dz = .4)
-
-TOSTER::TOSTpaired(n = 75, m1 = abs_df$mean[2], m2 = abs_df$mean[3], 
-                   sd1 = abs_df$sd[2], sd2 = abs_df$sd[3],
-                   r12 = .5, low_eqbound_dz = -.4, high_eqbound_dz = .4)
-
-# relative vot - French/English
-TOSTER::TOSTpaired(n = 25, m1 = desc_df$mean[2], m2 = desc_df$mean[1], 
-                   sd1 = desc_df$sd[2], sd2 = desc_df$sd[1],
-                   r12 = .5, low_eqbound_dz = -.4, high_eqbound_dz = .4)
-
-# relative vot - French/span
-TOSTER::TOSTpaired(n = 25, m1 = desc_df$mean[2], m2 = desc_df$mean[3], 
-                   sd1 = desc_df$sd[2], sd2 = desc_df$sd[3],
-                   r12 = .5, low_eqbound_dz = -.4, high_eqbound_dz = .4)
-
-
-
-## re-segment - wrong textgrids assigned 
-#1 307940
-#2 307944
-#3 307948
-#4 307953
-#5 308008
-#6 308010
-#7 308018
-#8 308376
-#9 308378
-#10 308379
-#11 308427
-#12 308487
-#13 307995
-#14 307999
-# 15 311348
-
-# ready 
-#1 
-#2 
-#3 
-#4 
-#5 
-#6 
-#7 
-#8 
-#9

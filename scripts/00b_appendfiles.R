@@ -1,7 +1,9 @@
 library(dplyr)
 library(here)
 
-loop_list <- list.files(here("data", "participant_uploads")) %>% 
+# this script was used to add the participant id to the audio file name 
+
+loop_list <- list.files(here("data", "mono_uploads")) %>% 
   as.data.frame()
 
 
@@ -9,7 +11,7 @@ for (iteration in 1:nrow(loop_list)) {
   
   id <- loop_list$.[iteration]
   
-  my_path <- here("data", "participant_uploads", paste(id)) # Define working directory
+  my_path <- here("data", "mono_uploads", paste(id)) # Define working directory
   
   file_names_old <- list.files(my_path) # get directory names/participant numbers 
   

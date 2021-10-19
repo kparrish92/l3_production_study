@@ -1,0 +1,18 @@
+# Meeting notes
+
+- clear up subset info 
+- difference typo
+- plot random effects without poa 
+- re-tag 
+- VOT/vowel Production tasks (L3 French, German)
+ - EPT
+ - Shadowing
+ 
+- Perception tasks
+ - Phoneme categorization task (vowels)
+ - AX task (vowels)
+
+
+- Extras 
+ - Biphone phonotactic probability (shadow with no audio reference)
+ - AX Korean stops 

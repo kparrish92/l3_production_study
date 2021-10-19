@@ -1,0 +1,107 @@
+---
+title: |
+  L3 French Voice-Onset Time at first exposure by Spanish-English bilinguals. 
+author: "Kyle Parrish"
+date: "10/9/21"
+output: 
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+header-includes:
+   - \usepackage{tipa}
+   - \usepackage{xcolor}
+fontsize: 12pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+**Name:** Kyle Parrish
+
+
+
+**Affiliation:** Rutgers University
+
+
+
+**Email:** kyle.parrish@rutgers.edu
+
+
+
+**Paper Title:** L3 French Voice-Onset Time at first exposure by Spanish-English bilinguals. 
+
+
+\newpage
+
+# Abstract
+
+The present study investigates bilinguals' first exposure to an L3 that they do not yet know in order to inform debates in L3 phonological acquisition. 
+Specifically, participants who speak L1 Mexican Spanish and L2 English were given French words to repeat in order to examine whether the phonology of their first language or their second language plays a greater role in the starting point of L3 phonological acquisition. 
+Previous studies have shown that, in the case of voice-onset time (VOT), L3 learners are primarily influenced by the L2 (Wrembel, 2010; Llama et al., 2010), or by hybrid values between the L1 and the L2 (Wrembel, 2011; Llama & Cardoso, 2018). 
+One potential reason for the variation in findings may stem from small sample sizes in L3 research. Small sample size is associated with an increased risk of committing type 1 or type 2 errors (Brysbaert, 2020), and it is possible that the variation in the effects found in the literature to date could be explained by sampling error, in addition to varied methodology. 
+To address these potential causes of variation, the present study employs a higher sample size (n = 91) of absolute beginners and uses tests of equivalence (Lakens, 2017) in order to determine whether a group trend of the use L1 and/or L2 phonology exists in the pronunciation of L3 words at the first exposure.
+
+  A total of 91 participants completed an L3 shadowing task in which they repeated 8 stop-initial words in all three places of articulation, and elicited production tasks in Spanish and English of 9 words each. 
+All stimuli were either one or two syllable words and were stressed on the first syllable. Words were presented in isolation and in a random order in language specific blocks. 
+Participants also completed a language background questionnaire which included self-rated proficiency in English as measure of proficiency.  
+
+The data were analyzed using generalized linear mixed effects models, within-subjects tests of equivalence (Lakens, 2017) and t-tests. 
+The results revealed that L3 relative VOT value fell inbetween L1 and L2 values, in line with previous research which found hybrid VOT values in L3 learners. 
+However, additional post-hoc analyses of subsets of the dataset revealed two distinct group trends. 
+Out of 54 subset participants, 18 showed evidence of primary L1 (Spanish) influence on L3 French productions, whereas the remaining 36 participants' L3 VOT was more heavily affected by their L2.
+These two group trends were not, however, equal in the magnitude of their effect. 
+L1 influence was less variable, where the L2 group showed simultaneous impact of both L1 and L2, but a clear and heavy influence of the L2.
+Importantly, tests of equivalence were inconclusive in the present study, despite higher sample size. 
+The present data suggest that, with an even higher sample size or meta-analysis, it is possible that L3 learners choose just one primary source of influence on L3 productions at first exposure. 
+However, the relative impact of that primary choice of language is not equal in the case of the L1 and the L2. 
+The results of the present study underscore the need for higher sample sizes in order to examine potential individual differences in cross-linguistic influence of previously learned languages on initial L3 production.
+
+\newpage
+
+**Word List**
+```{r, out.width="50%", fig.align='r=left'}
+data.frame(English = c("tipping","teller","tacky","penny","pass",
+                                 "parrot","kitten","kennel","cabbage"),
+Spanish = c("tiro","tema","talla","quiso","queja", "cama", "piso","pena","pato"),
+French = c("tir","terre","tasse","quitte","quelle","pile","pere","patte", "")) %>% 
+  knitr::kable()
+```
+
+```{r, figures-side, fig.show="hold", out.width="50%", warning=FALSE}
+l2_df <- read.csv(here::here("data", "tidy", "l2_subset.csv"))
+l1_df <- read.csv(here::here("data", "tidy", "non_l2_subset.csv"))
+l1_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3) + ggtitle("L1 subset")
+l2_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3) + ggtitle("L2 subset")
+```
+
+
+## References
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+\phantom{.} 
+\textcolor{white}{\\} 
+\vspace{-0.5in}
+\begin{tiny}
+Brysbaert, M. (2020). Power considerations in bilingualism research: Time to step up our game. Bilingualism: Language and Cognition, 1–6. 
+
+Lakens, D. (2017). Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses. Social Psychological and Personality Science, 8(4), 355–362. 
+
+Lemhfer, K., \& Broersma, M. (2012). Introducing LexTALE: A quick and valid Lexical Test for Advanced Learners of English. Behavior Research Methods, 44(2), 325–343. 
+
+Llama, R., \& Cardoso, W. (2018). Revisiting (Non-)Native Influence in VOT Production: Insights from Advanced L3 Spanish. Languages, 3(3), 30. 
+
+Llama, R., Cardoso, W., \& Collins, L. (2010). The influence of language distance and language status on the acquisition of L3 phonology. International Journal of Multilingualism, 7(1), 39–57. 
+
+St\"{o}lten, K., Abrahamsson, N., \& Hyltenstam, K. (2015). EFFECTS OF AGE AND SPEAKING RATE ON VOICE ONSET TIME: The Production of Voiceless Stops by Near-Native L2 Speakers. Studies in Second Language Acquisition, 37(1), 71–100.
+
+Wrembel, M. (2010). L2-accented speech in L3 production. International Journal of Multilingualism, 7(1), 75–90. 
+
+Wrembel, M. (2011). Cross-linguistic Influence in Third Language Acquisition of Voice Onset Time. Proceedings of the 17th International Congress of Phonetic Sciences, 2157–2160.
+\end{tiny}
+
+\endgroup

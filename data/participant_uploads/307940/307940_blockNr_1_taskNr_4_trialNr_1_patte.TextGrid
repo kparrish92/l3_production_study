@@ -2,7 +2,7 @@ File type = "ooTextFile"
 Object class = "TextGrid"
 
 xmin = 0 
-xmax = 1.28 
+xmax = 2.282667 
 tiers? <exists> 
 size = 3 
 item []: 
@@ -10,65 +10,61 @@ item []:
         class = "IntervalTier" 
         name = "ORT-MAU" 
         xmin = 0 
-        xmax = 1.28 
+        xmax = 2.282667 
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8579081837387513 
+            xmax = 0.8586345866819746 
             text = "" 
         intervals [2]:
-            xmin = 0.8579081837387513 
-            xmax = 1.2715915040183696 
+            xmin = 0.8586345866819746 
+            xmax = 1.37 
             text = "patte" 
         intervals [3]:
-            xmin = 1.2715915040183696 
-            xmax = 1.28 
+            xmin = 1.37 
+            xmax = 2.282667 
             text = "" 
     item [2]:
         class = "IntervalTier" 
         name = "KAN-MAU" 
         xmin = 0 
-        xmax = 1.28 
+        xmax = 2.282667 
         intervals: size = 3 
         intervals [1]:
             xmin = 0 
-            xmax = 0.516 
+            xmax = 0.8 
             text = "" 
         intervals [2]:
-            xmin = 0.516 
-            xmax = 0.826 
-            text = "p a t e" 
+            xmin = 0.8 
+            xmax = 1.37 
+            text = "p { t" 
         intervals [3]:
-            xmin = 0.826 
-            xmax = 1.28 
+            xmin = 1.37 
+            xmax = 2.282667 
             text = "" 
     item [3]:
         class = "IntervalTier" 
         name = "MAU" 
         xmin = 0 
-        xmax = 1.28 
-        intervals: size = 6 
+        xmax = 2.282667 
+        intervals: size = 5 
         intervals [1]:
             xmin = 0 
-            xmax = 0.8579081837387513 
+            xmax = 0.8586345866819746 
             text = "<p:>" 
         intervals [2]:
-            xmin = 0.8579081837387513 
-            xmax = 0.867511116473734 
+            xmin = 0.8586345866819746 
+            xmax = 0.867775631458094 
             text = "p" 
         intervals [3]:
-            xmin = 0.867511116473734 
-            xmax = 1.0522064293915039 
-            text = "a" 
+            xmin = 0.867775631458094 
+            xmax = 1.13 
+            text = "{" 
         intervals [4]:
-            xmin = 1.0522064293915039 
-            xmax = 1.130960045924225 
+            xmin = 1.13 
+            xmax = 1.37 
             text = "t" 
         intervals [5]:
-            xmin = 1.130960045924225 
-            xmax = 1.2584659012629162 
-            text = "e" 
-        intervals [6]:
-            xmin = 1.2584659012629162 
-            xmax = 1.28 
+            xmin = 1.37 
+            xmax = 2.282667 
             text = "<p:>" 
