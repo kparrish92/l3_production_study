@@ -2,6 +2,8 @@ library(here)
 library(tidyverse)
 library(stringr)
 
+# create text files for Webmaus autosegmentation based on file names
+
 file_names  <- list.files(path= here("data", "mono_uploads"),
                          recursive=T,
                          pattern=".wav"

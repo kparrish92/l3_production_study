@@ -1,4 +1,5 @@
 # Source libs -----------------------------------------------------------------
+# data used in slides and manuscripts
 
 source(here::here("scripts", "00_libs.R"))
 source(here("scripts", "01_helpers.R"))
@@ -100,3 +101,12 @@ total_participants_q <- sum(participants$l2_subset_no, participants$non_l2_no)
 stim_df <- read.csv(here("data", "tidy", "stim.csv"))
 
 power_df <- read.csv(here("data", "tidy", "powerdf.csv"))
+
+dis_df <- read.csv(here("data", "tidy", "dis_df.csv"))
+
+mono_data <- read.csv(here("data", "tidy", "mono_df.csv"))
+
+mono_df <- mono_data %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(relative_vot), sd = sd(relative_vot))
+

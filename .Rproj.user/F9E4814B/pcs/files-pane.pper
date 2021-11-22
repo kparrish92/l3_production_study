@@ -1,9 +1,17 @@
 {
     "sortOrder": [
         {
+            "columnIndex": 4,
+            "ascending": false
+        },
+        {
             "columnIndex": 2,
             "ascending": true
+        },
+        {
+            "columnIndex": 3,
+            "ascending": false
         }
     ],
-    "path": "~/Documents/GitHub/l3_production_study/scripts"
+    "path": "~/Documents/GitHub/l3_production_study/abstracts/phon_phon_abs"
 }

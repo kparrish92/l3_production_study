@@ -1,3 +1,5 @@
+# tidy biographical data from the questionnaire
+
 source(here::here("scripts", "00_libs.R"))
 
 tidy_df <- read.csv(here("data", "tidy", "subset_df.csv"))
@@ -21,12 +23,12 @@ bio_data_mono <- read.csv(here::here("data", "tidy", "mono_bio_data.csv")) %>%
 
 # how many answered `no` to `do you speak English` & completed the exp?
 
-nrow(bio_data %>% filter(eng == "no" & completed == "yes"))
+nrow(bio_data_mono %>% filter(eng == "no" & completed == "yes"))
 
-bio_data %>% filter(!eng == "no") 
+completed_mono <- bio_data_mono %>% filter(eng == "no" & completed == "yes") 
 
-
-#### some participants somehow did the experiment twice
+completed_mono %>% 
+  write.csv(here("data", "tidy", "completed_mono.csv"))
 
 unique(bio_data$prolific_id)
 
@@ -42,6 +44,3 @@ tidy_bio %>%
   write.csv(here("data", "tidy", "tidy_bio.csv"))
 
 length(unique(tidy_df_bio$participant))
-
-# what is the prof per group subset and aoa? 
-# make chart and plot 

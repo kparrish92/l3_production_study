@@ -1,42 +1,32 @@
-# 04a_tidy_monolingual  
-
-
 # Source libs -----------------------------------------------------------------
 
 source(here::here("scripts", "00_libs.R"))
 source(here("scripts", "01_helpers.R"))
 
-# -----------------------------------------------------------------------------
-# get eligible participants 
 
-mono_list <- read.csv(here("data", "tidy", "completed_mono.csv"))
+## load all monolingual participants 
 
-
-# find all Textgrid files under "participant_uploads"
-list_of_files <- list.files(path = here("data", "all_uploads_mono"), recursive = TRUE,
-                            pattern = "\\.TextGrid$", 
-                            full.names = TRUE) %>% 
+list_of_files_m <- list.files(path = here("data", "mono_uploads"), recursive = TRUE,
+                              pattern = "\\.TextGrid$", 
+                              full.names = TRUE) %>% 
   as.data.frame()
 
+df3 <- character()
 
-
-df2 <- character()
-
-for (iteration in 1:nrow(list_of_files)) {
-  df <- read_textgrid(list_of_files$.[iteration]) %>% 
+for (iteration in 1:nrow(list_of_files_m)) {
+  df <- read_textgrid(list_of_files_m$.[iteration]) %>% 
     add_words() %>% 
-    mutate(file = list_of_files$.[iteration])
-  df2 <- rbind(df, df2)
+    mutate(file = list_of_files_m$.[iteration])
+  df3 <- rbind(df, df3)
 }
-
 
 spanish_list <- c("tiro","tema","talla","quiso","queja", "cama", "piso","pena","pato")
 french_list <- c("tir","terre","tasse","quitte","quelle","pile","pere","patte")
 
 
-tidy_df <- df2 %>%
+tidy_mono <- df3 %>%
   mutate(file = str_remove(file, 
-                           "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/all_uploads_mono/")) %>% 
+                           "/Users/kyleparrish/Documents/GitHub/l3_production_study/data/mono_uploads/")) %>% 
   separate(file, into = c("participant", "other", sep = "/")) %>% 
   mutate(vot = xmax - xmin) %>%
   mutate(relative_vot = vot/duration) %>% 
@@ -47,7 +37,23 @@ tidy_df <- df2 %>%
   filter(!(text == "t" & word == "quitte")) %>% 
   filter(!(text == "t" & word == "patte")) %>% 
   filter(!(text == "t" & word == "pato")) %>% 
-  mutate(vot_ms = vot*1000) %>% 
-  filter(participant %in% mono_list$participant)
+  mutate(vot_ms = vot*1000)
+
+# a subset of usable data (clear quality, no or little backgroud noise)
+mono_participants <- c(324130, 324140, 324149, 324151, 324154,
+                       324155, 324157, 324164, 324165, 324166,
+                       324171, 324178, 324183, 324185, 324192,
+                       324219, 324225, 324249)
+
+
+mono_df <- tidy_mono %>% 
+  filter(participant %in% mono_participants) %>% 
+  filter(!is.na(language))
+
+mono_df %>% 
+  write.csv(here("data", "tidy", "mono_df.csv"))
+
+
+
 
 

@@ -5,11 +5,16 @@ source(here::here("scripts", "00_libs.R"))
 source(here("scripts", "01_helpers.R"))
 
 # -----------------------------------------------------------------------------
+# rum analyses of tidy data  
 
-sub_df <- read.csv(here("data", "tidy", "subset_df.csv"))
+sub_df <- read.csv(here("data", "tidy", "subset_df.csv")) %>% 
+  mutate("vowel" = case_when(
+    word %in% a_list ~ "a",
+    word %in% e_list ~ "e",
+    word %in% i_list ~ "i"
+  ))
 
 bio_df <- read.csv(here("data", "tidy", "tidy_bio.csv"))
-
 
 
 ## loop function to run t.tests on productions of fren/eng per participant 
@@ -83,11 +88,17 @@ eligible_df <- eligible_df %>%
 # disclused participants due to not producing different spanish and english vot 
 
 dis_df <- tidy_df_dis %>% 
-  filter(!sp_eng_p < .05)
+  filter(!sp_eng_p < .05) %>% 
+  mutate("vowel" = case_when(
+    word %in% a_list ~ "a",
+    word %in% e_list ~ "e",
+    word %in% i_list ~ "i"
+  ))
 
 length(unique(dis_df$participant))
 
-
+dis_df %>% 
+  write.csv(here("data", "tidy", "dis_df.csv"))
 
 # How many participants categorized Spanish and French differently?
 temp_2 <- eligible_df %>% 
@@ -240,13 +251,15 @@ dis_df %>%
 
 
 # GLMM 
-mod0 <- lmer(relative_vot_z ~ language + text + (1 | participant) + (1 | word), data = eligible_df)
+mod0 <- lmer(relative_vot_z ~ language + text + (0 + language | participant) + (1 | word), data = eligible_df)
 summary(mod0)
 
-mod1 <- lmer(relative_vot_z ~ language + text + (1 | participant) + (1 | word), data = l2_subset_df)
+fixef(mod0)
+
+mod1 <- lmer(relative_vot_z ~ language + text + (0 + language | participant) + (1 | word), data = l2_subset_df)
 summary(mod1)
 
-mod2 <- lmer(relative_vot_z ~ language + text + (language | participant) + (1 | word), data = non_l2_subset_df)
+mod2 <- lmer(relative_vot_z ~ language + text + (0 + language | participant) + (1 | word), data = non_l2_subset_df)
 summary(mod2)
 
 
@@ -363,10 +376,4 @@ mod2 %>%
 #mod2 %>% 
  # write_rds(here("data", "models", "l1_sub_model.RDS"))
 
-
-### dis dq as stand in for mono data 
-
-dis_df %>% 
-  group_by(language) %>% 
-  summarise(mean = mean(relative_vot), sd = sd(relative_vot))
 

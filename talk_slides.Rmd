@@ -1,0 +1,604 @@
+---
+title: "An introduction to third language acquisition"
+subtitle: 'One Mind Two Languages: Fall 2021'
+author  : "Kyle Parrish"
+date    : "Rutgers University</br>Fall 2021</br>Last update: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    chakra: "https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"
+    lib_dir: libs
+    css: [default, hygge, rutgers, rutgers-fonts]
+    nature:
+      beforeInit: ["https://www.jvcasillas.com/ru_xaringan/js/ru_xaringan.js"]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+---
+```{css, echo = FALSE}
+.remark-slide-content {
+  font-size: 20px;
+  padding: 20px 80px 20px 80px;
+}
+.remark-code, .remark-inline-code {
+  background: #f0f0f0;
+}
+.remark-code {
+  font-size: 24px;
+}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 70% !important;
+}
+.med .remark-code { /*Change made here*/
+  font-size: 120% !important;
+}
+```
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, dpi = 300)
+```
+
+```{r, load_data}
+library(tidyverse)
+library(sjPlot)
+library(here)
+library(lme4)
+
+participants <- read.csv(here::here("data", "tidy", "participant_count.csv"))
+
+l2_df <- read.csv(here::here("data", "tidy", "l2_subset.csv"))
+l1_df <- read.csv(here::here("data", "tidy", "non_l2_subset.csv"))
+
+# load models 
+mod0 <- readRDS(here("data", "models", "full_model.RDS"))
+l1_mod <- read_rds(here("data", "models", "l1_sub_model.RDS"))
+l2_mod <- read_rds(here("data", "models", "l2_sub_model.RDS"))
+
+all_desc_df <- read.csv(here("data", "tidy", "all_desc.csv"))
+stim_df <- read.csv(here("data", "tidy", "stim.csv"))
+
+total_participants <- sum(participants$l2_subset_no, participants$non_l2_no, participants$dqed_no)
+
+total_participants_q <- sum(participants$l2_subset_no, participants$non_l2_no)
+
+source(here::here("scripts", "07_small_data.R"))
+```
+
+# Introduction
+
+.big[
+- **Third Language Acquistion** is the process of learning a language by someone who already knows 2 languages. 
+]
+
+--
+
+.big[
+- L3 models attempt to predict acquisition patterns when 2 languages are available
+]
+
+--
+
+- Complicating factors: 
+ - Range of L2 ultimate attainment 
+ - Language use and dominance 
+ - Age effects 
+ 
+???
+
+The difficulty of learning a new language in adulthood has a well documented history.   
+Much less is known about the acquisition of a third language (L3A)
+
+Research in third language acquisition has attempted to model the interplay between L1 and L2 language systems and their cumulative influence in the process of the acquisition of a third.
+
+mong questions asked by third language models is whether the L1 or L2, or a combination of both languages, serves as the basis in L3 acquisition.
+
+This question is complicated in the context of multilingualism due to the widespread diversity in bilingual populations that include wide variation in ultimate attainment in adult L2 learners, and, in the case of phonological acquisition, wide variation in the production patterns of L2 segments
+
+---
+
+# Questions 
+
+.big[
+ **Question 1:** Does just 1 language, or do both languages affect L3A? 
+ 
+ **Question 2:** Are bilinguals better at learning languages than monolinguals?
+]
+
+--
+
+L3 models are guided by these questions. 
+
+ - What do you think? 
+ 
+ - Take a few moments to write down your hypotheses to both queations. 
+
+---
+
+# Models
+
+.big[
+The **Cumulative Enhancement Model** (Flynn, Foley and Vinnitskaya, 2004)
+]
+
+--
+
+.pull-left[
+L3 learners will can draw on **both languages** they know during L3A.
+
+Both languages are helpful.
+
+**Q1:** Does just 1 language, or do both languages affect L3A? 
+   
+   Both languages.
+  
+**Q2:** Are bilinguals better at learning languages than monolinguals?
+
+   Yes.
+]
+
+--
+
+.pull-right[
+## Evidence: 
+
+L3 English influenced by **L2** (L1 Kazakh-L2 Russian) Flynn et al. (2004)
+
+L3 English influenced by **L1** (Hungarian L1-German L2) Berkés and Flynn (2012) 
+]
+
+---
+
+# Models
+
+.big[
+The **L2 Status Factor** (Bardel & Falk, 2007)
+]
+
+--
+
+.pull-left[
+L2 will influence the L3 
+
+**Q1:** Does just 1 language, or do both languages affect L3A? 
+
+ONLY the L2 affects the L3 in the beginning.
+
+**Q2:** Are bilinguals better at learning languages than monolinguals?
+
+No
+]
+
+--
+
+.pull-right[
+## Evidence (Bardel and Falk, 2007)
+
+Word order in the L3
+
+**Group 1:** L1 Non-Germanic L2 Germanic L3 Germanic
+
+**Group 2:** L1 Germanic L2 Non-Germanic L3 Germanic 
+
+Groups behaved **differently** - Group 1 outperformed group 2 
+ - Group 1: target like L3 word order 
+ - Group 2: L2 and non-target like L3 word order 
+]
+
+---
+
+# Models   
+  
+.big[  
+The **Typological Primacy Model** (Rothman, 2011)
+]
+
+--
+
+.pull-left[
+Similarity between languages determines influence
+
+One language influences the L3 holistically 
+
+
+**Q1:** Does just 1 language, or do both languages affect L3A? 
+
+Only 1 language affects the L3 - closest typological match. 
+   
+**Q2:** Are bilinguals better at learning languages than monolinguals?
+
+No.
+]
+
+--
+
+.pull-right[
+## Evidence (Rothman, 2011)
+
+Similar adjective placement in two groups 
+
+L1 Italian-L2 English-L3 Spanish
+
+L1 English-L2 Spanish-L3 Brazilian Portuguese (BP)
+]
+
+---
+
+# Models
+
+.big[
+The **Linguistic Proximity Model** (Westergaard et al., 2017)
+]
+
+--
+
+.pull-left[
+Activation of **both languages** causes the L3 values to fall between L1 and L2 values.
+
+**Q1:** Does just 1 language, or do both languages affect L3A? 
+
+Both
+
+**Q2:** Are bilinguals better at learning languages than monolinguals?
+
+Maybe.
+]
+
+--
+
+.pull-right[
+## Evidence (Westergaard et al., 2017) 
+
+Word order in L3 English
+
+Norwegian-Russian bilinguals with L3 English
+
+L1 Norwegian L2 English 
+
+L1 Russian L2 English 
+
+Accuracy: 1st L1 Russian L2 English
+
+2nd Norwegian-Russian bilinguals 
+            
+3rd L1 Norwegian L2 English
+]
+
+---
+
+# VOT Study 
+
+.big[
+- I conducted a study to test how Spanish-English bilinguals pronounce French words at first exposure.  
+]
+
+--
+
+.big[
+- Specifically, they pronounced words beginning in /p/, /t/ or /k/ in all three languages.   
+
+- I measured Voice-onset time to compare productions between languages.
+]
+
+--
+
+.med[
+- Voice-onset time (VOT) is a phonetic measure of duration in milliseconds that distinguishes consonants (such as /p/ from /b/) in many of the world's languages 
+]
+
+--
+
+.med[
+- Cross-linguistic VOT
+ - **Spanish** and **French** - similar production of /ptk/
+ - **English** - longer VOT and aspiration of /ptk/
+]
+
+---
+
+# Methods 
+
+.pull-left[.big[
+- **RQ:** When Spanish-English bilinguals produce French words at first exposure, will their VOT productions be more L1 or L2 like?  
+]]
+
+--
+
+.pull-right[.big[
+- **Predictions:** It is possible that hybrid values reported in the literature are due to sampling error or phonological acquisition - it was predicted that **L3 VOT would be practically equivalent to L2 VOT.**
+]]
+
+---
+# Materials 
+
+.big[
+**VOT measurements**
+- French shadowing task 
+
+- English word reading task
+
+- Spanish word reading task 
+]
+
+---
+
+# Procedure 
+
+<img align="center" width="700" src="slides/shadowingexample.png">
+
+---
+
+# Participants 
+
+.big[
+`r total_participants_q` participants were **L1 Mexican Spanish**, **L2 English** late bilinguals
+]
+
+--
+
+```{r}
+filt_bio <- bio_data %>% 
+  filter(participant %in% all_df$participant)
+
+data.frame("Factor" = c("AoA", "Current age", "Proficiency"),
+           "Mean" = c(mean(filt_bio$age), mean(filt_bio$current_age), mean(filt_bio$self_prof)),
+           "SD" = c(sd(filt_bio$age), sd(filt_bio$current_age), sd(filt_bio$self_prof))) %>% 
+  knitr::kable(digits = 2)
+
+```
+
+---
+
+# Results - all participants 
+
+```{r}
+all_df <- rbind(l1_df, l2_df)
+all_part <- length(unique(all_df$participant))
+```
+
+.pull-left[.tiny[
+n = `r all_part`
+
+```{r, fig.height=4, fig.width=5}
+all_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3)
+```
+
+```{r}
+all_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  knitr::kable(digits = 3)
+```
+]]
+
+.tiny[.pull-right[
+```{r}
+tab_model(mod0)
+```
+]]
+
+---
+
+# Averages per segment full dataset
+
+```{r}
+all_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "k") %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r}
+all_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "t") %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r}
+all_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "p") %>% 
+  knitr::kable(digits = 3)
+```
+
+---
+
+# Results: L2 subset
+
+.pull-left[.tiny[
+
+Subsetting procedure: inconclusive French-English t.tests 
+
+**Hybrid values**  n = `r participants$l2_subset_no`
+
+```{r fig1, fig.height=4, fig.width=5, dpi=300}
+l2_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3)
+```
+
+```{r}
+l2_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  knitr::kable(digits = 4)
+```
+]]
+
+.tiny[.pull-right[
+```{r, dpi=300}
+tab_model(l2_mod)
+```
+]]
+
+---
+
+# L2 subset - Test of Equivalence 
+
+.pull-left[
+```{r, fig.height = 8.5, fig.width = 8}
+l2_subset_df <- l2_df
+l2_subset_df_fr <- l2_subset_df %>% 
+  filter(language == "french")
+l2_subset_df_en <- l2_subset_df %>% 
+  filter(language == "english")
+
+# TOST to see whether a subset of participants are practically equivalent with
+# eng and french 
+
+TOSTER::TOSTtwo(n1 = length(unique(l2_subset_df$participant)),
+                n2 = length(unique(l2_subset_df$participant)), 
+                   m1 = mean(l2_subset_df_fr$relative_vot), 
+                   m2 = mean(l2_subset_df_en$relative_vot), 
+                   sd1 = sd(l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(l2_subset_df_en$relative_vot),
+                   low_eqbound_d = -.4, 
+                   high_eqbound_d = .4)
+```
+]
+
+---
+
+# Individual differences - L2 subset
+
+
+```{r, fig.height=3, fig.width=6, dpi=300}
+tidy_df <- read.csv(here("data", "tidy", "tidy_df_2.csv"))
+
+tidy_df$participant <- as.factor(tidy_df$participant)
+ 
+temp_4 <- tidy_df %>% 
+  filter(fr_eng_p > .05) %>%  
+  filter(sp_eng_p < .05)
+
+l2_subset <- unique(temp_4$participant)
+
+# L2 subset 
+tidy_df %>% 
+  filter(participant %in% l2_subset) %>% 
+  group_by(participant, language) %>%
+  summarise(vot = mean(relative_vot)) %>% 
+  pivot_wider(names_from = language, values_from = vot) %>% 
+  mutate("English French difference" = english - french,
+         "English Spanish difference" = english - spanish) %>%  
+  select(participant, `English French difference`, `English Spanish difference`) %>% 
+  pivot_longer(c(`English French difference`, `English Spanish difference`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = participant, color = pair)) + geom_point() +
+  ggtitle("L2 subset") + geom_vline(xintercept = 0) +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+```
+
+---
+
+# Results: L1 subset
+
+.pull-left[.tiny[
+
+Subsetting procedure: p < .05 French-English t.tests 
+
+**Heavy L1 influence** n = `r participants$non_l2_no`
+
+```{r fig2, fig.height = 4, fig.width = 5, dpi=300}
+l1_df %>% 
+  ggplot(aes(x = relative_vot, y = language)) + geom_boxplot() + xlim(0,.3)
+```
+
+```{r}
+l1_df %>% 
+  group_by(language) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  knitr::kable(digits = 3)
+```
+]]
+
+.tiny[.pull-right[
+```{r, dpi=300}
+tab_model(l1_mod)
+```
+]]
+---
+
+# L1 subset - Test of Equivalence 
+
+.pull-left[
+```{r, fig.height = 8.5, fig.width = 8}
+non_l2_subset_df_fr <- l1_df %>% 
+  filter(language == "french")
+non_l2_subset_df_sp <- l1_df %>% 
+  filter(language == "spanish")
+
+TOSTER::TOSTtwo(n1 = length(unique(l1_df$participant)),
+                   n2 = length(unique(l1_df$participant)), 
+                   m1 = mean(non_l2_subset_df_fr$relative_vot), 
+                   m2 = mean(non_l2_subset_df_sp$relative_vot), 
+                   sd1 = sd(non_l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(non_l2_subset_df_sp$relative_vot),
+                   low_eqbound_d = -.4, 
+                   high_eqbound_d = .4)
+
+```
+]
+
+
+---
+# Individual Differences - L1 subset
+
+```{r, fig.height=3, fig.width=6, dpi=300}
+# L1 subset 
+tidy_df %>% 
+  filter(!participant %in% l2_subset) %>% 
+  group_by(participant, language) %>%
+  summarise(vot = mean(relative_vot)) %>% 
+  pivot_wider(names_from = language, values_from = vot) %>% 
+  mutate("sp_fr_diff" = french - spanish,
+         "sp_eng_diff" = english - spanish) %>%  
+  select(participant, sp_eng_diff, sp_fr_diff) %>% 
+  pivot_longer(c(`sp_eng_diff`, `sp_fr_diff`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = participant, color = pair)) + geom_jitter() +
+  ggtitle("L1 subset") + geom_vline(xintercept = 0) +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+```
+
+---
+
+# Discussion and Conclusions 
+
+.big[
+- Participants are primarily influenced by one of their source languages but to different degrees
+]
+
+--
+
+.big[
+ - L1 influence, L3 VOT ~ L1 values, 
+ - L2 influence, L3 VOT values fell between L1 and L2 values
+] 
+
+---
+
+# Discussion and Conclusions  
+
+.big[.pull-left[
+- Which model do these results support?
+
+- Are the conclusions different for the group level and the individual level? 
+
+- Have your answers to question 1 and question 2 changed? 
+]]
+
+--
+
+.big[.pull-right[
+**Q1:** Does just 1 language, or do both languages affect L3A? 
+   
+
+**Q2:** Are bilinguals better at learning languages than monolinguals?
+]]

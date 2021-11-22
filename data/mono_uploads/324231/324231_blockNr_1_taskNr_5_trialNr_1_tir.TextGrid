@@ -1,0 +1,70 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.541333 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 1.541333 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6836833290156037 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6836833290156037 
+            xmax = 1.1067196200145308 
+            text = "tir" 
+        intervals [3]:
+            xmin = 1.1067196200145308 
+            xmax = 1.541333 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 1.541333 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.706 
+            text = "" 
+        intervals [2]:
+            xmin = 0.706 
+            xmax = 0.996 
+            text = "t i r" 
+        intervals [3]:
+            xmin = 0.996 
+            xmax = 1.541333 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.541333 
+        intervals: size = 5 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6836833290156037 
+            text = "<p:>" 
+        intervals [2]:
+            xmin = 0.6836833290156037 
+            xmax = 0.7504108270052751 
+            text = "t" 
+        intervals [3]:
+            xmin = 0.7504108270052751 
+            xmax = 0.926 
+            text = "i" 
+        intervals [4]:
+            xmin = 0.926 
+            xmax = 0.996 
+            text = "r" 
+        intervals [5]:
+            xmin = 0.996 
+            xmax = 1.541333 
+            text = "<p:>" 

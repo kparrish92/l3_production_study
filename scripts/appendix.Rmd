@@ -1,0 +1,109 @@
+# 09 appendix and extras 
+```{r}
+source(here::here("scripts", "07_small_data.R"))
+```
+
+#### more descriptive stats 
+
+# Absolute VOT desc values
+
+## pooled
+```{r}
+all_df %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+```{r}
+## per consonant
+all_df %>% 
+  group_by(language, text) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+# L2 subset
+## pooled
+```{r}
+l2_df %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+```{r}
+## per consonant
+l2_df %>% 
+  group_by(language, text) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+```{r}
+# L1 subset
+## pooled
+l1_df %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+```{r}
+## per consonant
+l1_df %>% 
+  group_by(language, text) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+
+```
+
+```{r}
+# Relative VOT of the full dataset per vowel, consonant and per language
+vowel_desc <- all_df %>% 
+  group_by(text, vowel, language) %>% 
+  summarise(mean_vot = mean(relative_vot), sd_vot = sd(relative_vot)) %>% 
+  knitr::kable()
+```
+
+```{r}
+# Plot of VOT by vocalic context 
+vowel_desc %>% 
+  ggplot(aes(x = mean_vot, y = language, color = vowel)) + geom_point()
+```
+
+```{r}
+### disqulified participants desc  
+## relative vot 
+### pooled
+dis_df %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(relative_vot), sd = sd(relative_vot))  %>% 
+  knitr::kable()
+```
+
+```{r}
+### per consonant
+dis_df %>% 
+  group_by(language, text) %>% 
+  summarise(mean = mean(relative_vot), sd = sd(relative_vot)) %>% 
+  knitr::kable()
+```
+
+```{r}
+## absolute vot 
+### pooled
+dis_df %>% 
+  group_by(language) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+
+```{r}
+### per consonant
+dis_df %>% 
+  group_by(language, text) %>% 
+  summarise(mean = mean(vot_ms), sd = sd(vot_ms)) %>% 
+  knitr::kable()
+```
+

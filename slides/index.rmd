@@ -68,6 +68,109 @@ source(here::here("scripts", "07_small_data.R"))
 ```
 
 
+# Introduction
+
+- Language learning in adulthood is difficult 
+
+- It is unclear how native-like an L2 speaker can become.  
+
+---
+
+# Introduction
+
+- Much less is known about L3 acquisition (L3A)
+
+- L3 models attempt to predict acquisition patterns when 2 languages are available
+
+- Complicating factors: 
+ - Range of L2 ultimate attainment 
+ - Language use and dominance 
+ - Age effects 
+ 
+- Key questions in L3A: 
+
+ - Does just 1 language, or do both languages affect L3A? 
+ - Are bilinguals better at learning languages than monolinguals?
+ 
+???
+
+The difficulty of learning a new language in adulthood has a well documented history.   
+Much less is known about the acquisition of a third language (L3A)
+
+Research in third language acquisition has attempted to model the interplay between L1 and L2 language systems and their cumulative influence in the process of the acquisition of a third.
+
+mong questions asked by third language models is whether the L1 or L2, or a combination of both languages, serves as the basis in L3 acquisition.
+
+This question is complicated in the context of multilingualism due to the widespread diversity in bilingual populations that include wide variation in ultimate attainment in adult L2 learners, and, in the case of phonological acquisition, wide variation in the production patterns of L2 segments
+
+---
+
+ Question 1: Does just 1 language, or do both languages affect L3A? 
+ 
+ Question 2: Are bilinguals better at learning languages than monolinguals
+
+L3 models are guided by these questions. 
+
+ - What do you think? 
+
+---
+
+# Models
+
+The **Cumulative Enhancement Model** (Flynn, Foley and Vinnitskaya, 2004)
+  - Does just 1 language, or do both languages affect L3A? 
+   - Both languages.
+  -  Are bilinguals better at learning languages than monolinguals?
+   - Yes.
+   
+--
+
+- Evidence 
+
+
+---
+
+# Models
+   
+The **L2 Status Factor** (Bardel & Falk, 2007)
+  - Does just 1 language, or do both languages affect L3A? 
+   - ONLY the L2 affects the L3 in the beginning
+  - Are bilinguals better at learning languages than monolinguals?
+   - No.
+
+--
+
+- Evidence 
+
+---
+
+# Models   
+  
+The **Typological Primacy Model** (Rothman, 2011)
+  - Does just 1 language, or do both languages affect L3A? 
+   - Only 1 language affects the L3 - closest typological match. 
+  - Are bilinguals better at learning languages than monolinguals?
+   - No.
+
+--
+
+- Evidence 
+
+---
+
+The **Linguistic Proximity Model** (Westergaard et al., 2017)
+  - Does just 1 language, or do both languages affect L3A? 
+   - Both
+  - Are bilinguals better at learning languages than monolinguals?
+   - Maybe.
+
+--
+
+- Evidence 
+
+ 
+---
+
 # Literature Review 
 
 **Broad questions** 
@@ -427,8 +530,8 @@ tidy_df %>%
   mutate("English French difference" = english - french,
          "English Spanish difference" = english - spanish) %>%  
   select(participant, `English French difference`, `English Spanish difference`) %>% 
-  pivot_longer(c(`English French difference`, `English Spanish difference`), names_to = "pair", values_to = "differnce") %>% 
-  ggplot(aes(x = differnce, y = participant, color = pair)) + geom_point() +
+  pivot_longer(c(`English French difference`, `English Spanish difference`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = participant, color = pair)) + geom_point() +
   ggtitle("L2 subset") + geom_vline(xintercept = 0) +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
@@ -499,8 +602,8 @@ tidy_df %>%
   mutate("sp_fr_diff" = french - spanish,
          "sp_eng_diff" = english - spanish) %>%  
   select(participant, sp_eng_diff, sp_fr_diff) %>% 
-  pivot_longer(c(`sp_eng_diff`, `sp_fr_diff`), names_to = "pair", values_to = "differnce") %>% 
-  ggplot(aes(x = differnce, y = participant, color = pair)) + geom_jitter() +
+  pivot_longer(c(`sp_eng_diff`, `sp_fr_diff`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = participant, color = pair)) + geom_jitter() +
   ggtitle("L1 subset") + geom_vline(xintercept = 0) +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")

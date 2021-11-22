@@ -1,13 +1,13 @@
 #########################################################
 # Praat script to hand correct auto-segmented textgrids #
 # Created by                                            #
-# Kyle Parrish 9/10/21.                                 #
+# Kyle Parrish 9/10/21.  			                     # 	
+# Adapted from a script by Joseph Casillas              #
 #########################################################
-
 
 form Enter information
 	comment Participant ID (folder with .wav files):
-	sentence fileID 314860
+	sentence fileID 324255
 endform
  
 
@@ -15,12 +15,11 @@ endform
 # Enter the path to where the files are kept -------------------
 #
 
-dirFiles$ = "../data/participant_uploads/"+fileID$+""
-newDir$ = "../data/participant_uploads/"+fileID$+""
+dirFiles$ = "../data/mono_uploads/"+fileID$+""
+newDir$ = "../data/mono_uploads/"+fileID$+""
 number = 1
 
 # --------------------------------------------------------------
-
 
 
 
@@ -36,7 +35,7 @@ Create Strings as file list: "textgrids", dirFiles$ + "/*.TextGrid"
 # Select allFiles
 select Strings allFiles
 
-# Count number of stings (this is the iterator for the loop!)
+# Count number of stings 
 numberOfFiles = Get number of strings
 
 # Clear info window just in case
