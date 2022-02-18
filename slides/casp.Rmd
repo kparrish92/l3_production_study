@@ -214,6 +214,7 @@ background-color: black
 # The Present Study 
 
 .big[
+.pull-left[
 **Spanish L1 - English L2** speakers and **Spanish monolinguals** shadowed words in **French**, an unknown language.
 
 Spanish and English were also produced for comparison.
