@@ -1,0 +1,775 @@
+---
+title: "L3 French Voice Onset Time at first exposure by Spanish-English bilinguals"
+subtitle: 'CASPSLaP, February 2022'
+author  : "Kyle Parrish"
+date    : "Rutgers University"
+output:
+  xaringan::moon_reader:
+    chakra: "https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"
+    lib_dir: libs
+    css: [default, hygge, rutgers, rutgers-fonts]
+    nature:
+      beforeInit: ["https://www.jvcasillas.com/ru_xaringan/js/ru_xaringan.js"]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+---
+```{css, echo = FALSE}
+.remark-slide-content {
+  font-size: 20px;
+  padding: 20px 80px 20px 80px;
+}
+.remark-code, .remark-inline-code {
+  background: #f0f0f0;
+}
+.remark-code {
+  font-size: 24px;
+}
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.tiny .remark-code { /*Change made here*/
+  font-size: 70% !important;
+}
+.med .remark-code { /*Change made here*/
+  font-size: 120% !important;
+}
+```
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, dpi = 300)
+```
+
+```{r, load_data}
+library(tidyverse)
+library(sjPlot)
+library(here)
+library(lme4)
+
+participants <- read.csv(here::here("data", "tidy", "participant_count.csv"))
+
+l2_df <- read.csv(here::here("data", "tidy", "l2_subset.csv"))
+l1_df <- read.csv(here::here("data", "tidy", "non_l2_subset.csv"))
+
+# load models 
+mod0 <- readRDS(here("data", "models", "full_model.RDS"))
+mod_casp <- readRDS(here("data", "models", "full_model_casp.rds")) 
+l1_mod <- read_rds(here("data", "models", "l1_sub_model.RDS"))
+l2_mod <- read_rds(here("data", "models", "l2_sub_model.RDS"))
+
+all_desc_df <- read.csv(here("data", "tidy", "all_desc.csv"))
+stim_df <- read.csv(here("data", "tidy", "stim.csv"))
+
+total_participants <- sum(participants$l2_subset_no, participants$non_l2_no, participants$dqed_no)
+
+total_participants_q <- sum(participants$l2_subset_no, participants$non_l2_no)
+
+mono_df <- read.csv(here("data", "tidy", "mono_df.csv")) %>% 
+  mutate(group = "monolingual") %>% 
+  select(participant, text, word, duration, vot, relative_vot, language, group)
+
+
+tidy_df <- rbind(l1_df, l2_df) %>% mutate(group = "bilingual") %>% 
+  select(participant, text, word, duration, vot, relative_vot, language, group)
+
+mono_participants <- unique(mono_df$participant) %>% as.data.frame()
+
+comb_df <- rbind(tidy_df, mono_df)
+source(here::here("scripts", "07_small_data.R"))
+```
+
+# Overview 
+
+.pull-left[
+.big[
+- Introduction
+
+- Background
+
+- The Present study
+
+- Conclusion 
+]
+]
+
+---
+
+class: center, middle
+background-color: black
+
+# Are L2 acquisition and L3 acquisition the same?
+
+---
+
+# Introduction
+
+.big[
+- If L2 and L3 learning are the same, there should be **no difference between monolingual and bilingual participants** when learning a new language.
+]
+
+--
+
+.big[
+- Specifically, the **L2 should not impact L3 learning**. 
+]
+
+--
+
+.big[
+- The present study investigates this assertion by examining the production of Voice Onset Time in **bilinguals** and **monolinguals** in a language they do not yet know.
+]
+ 
+---
+
+# Introduction
+
+- L3 research suggests that L3 and L2 acquisition are distinct processes and investigates what factors impact how the L1 and/or L2 impact the acquisition of a new language.
+
+--
+
+.pull-left[
+.full-width[
+.content-box-red[
+- Some accounts suggest that **only one source language** plays a primary role in L3A. 
+ - **Typological Primacy Model** Closer psycho-typological language holistically influences the L3 (Rothman, 2015).
+ - **The L2 Status Factor** The L2 has a special status and blocks access to the L1 (Bardel & Falk, 2007).
+]]]
+
+--
+
+.pull-right[
+.full-width[
+.content-box-red[ 
+- Other accounts suggest that **both the L1 and L2** influence the L3.
+ - **The Cumulative Enhancement Model** L3 learning is a cumulative process (Flynn et al., 2004).
+ - **The Linguistic Proximity Model/Scalpel Model** L3 learning occurs on a structure-by-structure basis and is influenced by underlying structural similarity between either L1 or L2 and L3 (Westergaard et al. 2017; Slabakova, 2017). 
+]]]
+
+---
+
+# L3 phonology 
+
+- Work in L3 phonology is more scarce, but has seen similarly mixed results (L1 influence, L2 status, hybrid)
+
+--
+
+.pull-left[
+.full-width[
+.content-box-red[
+**Previous Studies in L3 VOT**
+
+- L3 VOT studies have been mixed
+ - **L2 influence** (Llama et al., 2010; Tremblay, 2007; Wunder, 2010)
+ - **Intermediate values** (Wrembel, 2011, 2014, 2015; Llama & Cardoso, 2018)
+
+- L2 influence has been reported in global accent ratings (Wrembel, 2010; Williams & Hammarberg, 1993) 
+
+- No clear explanation for mixed findings. 
+]]]
+
+--
+
+.pull-right[
+.full-width[
+.content-box-blue[
+**My contribution**
+
+- **New language order** 
+  - Spanish L1, English L2, French "L3".
+
+- **First exposure** rather than more advanced stages.
+]]]
+
+---
+
+# The Present Study
+
+.big[
+- The present study also was designed to examine the predictions of the models.
+]
+
+--
+
+.big[
+.pull-left[
+.content-box-red[
+**RQ1**: Will bilingual participants produce words in a new language closer to their own productions in their first or second language?
+
+**RQ2**: Will differences in novel-language word production between bilingual and monolingual groups be seen?
+]]]
+
+--
+
+.big[
+.pull-right[
+.content-box-blue[
+**H1**: L3 production will resemble L2 production (longer VOT)
+
+**H2**: Monolingual French production will resemble Spanish and Bilingual French production will resemble English
+]]]
+
+---
+
+# The Present Study 
+
+.big[
+**Spanish L1 - English L2** speakers and **Spanish monolinguals** shadowed words in **French**, an unknown language.
+
+Spanish and English were also produced for comparison.
+]]
+
+--
+
+
+.pull-right[
+.big[
+**Voice onset time** of these productions was measured and compared.
+]]
+
+
+---
+
+
+class: center, middle
+
+# VOT cross-linguistic comparison
+
+.large[
+English ≠ Spanish = French
+]
+
+---
+
+# Participants 
+
+.big[
+.pull-left[
+2 groups were recruited online:
+
+**Bilingual group**: `r total_participants_q` L1 Mexican Spanish - L2 English speakers.
+
+**Monolingual group**: `r nrow(mono_participants)` L1 Mexican Spanish monolingual speakers.
+]]
+
+--
+
+.pull-right[
+.content-box-grey[
+- **Location:** All participants were born and lived in Mexico at the time of the study.
+
+- **L2 Proficiency:** Self-rated (1-7 scale) + phonetic corroboration (Spanish-English t-test)
+
+- **Dominance and use:** Filtering location was intended to find Spanish-dominant speakers
+
+- All participants reported not speaking or having studied a third language. 
+]]
+
+--
+
+```{r}
+filt_bio <- bio_data %>% 
+  filter(participant %in% all_df$participant)
+
+data.frame("Factor" = c("AoA", "Current age", "Proficiency"),
+           "Mean" = c(mean(filt_bio$age), mean(filt_bio$current_age), mean(filt_bio$self_prof)),
+           "SD" = c(sd(filt_bio$age), sd(filt_bio$current_age), sd(filt_bio$self_prof))) %>% 
+  knitr::kable(digits = 2)
+
+```
+--
+
+.footnote[
+`r participants$dqed_no` participants did not produce distinct L1 and L2 sounds are their data was removed
+]
+---
+
+# Materials 
+
+.big[
+- L1 and L2 production - **Word reading task**
+]
+
+--
+
+.big[
+- L3 production - **Shadowing task**
+]
+
+--
+
+.big[
+- Proficiency and use - **Background questionnaire**
+]
+
+---
+
+# Procedure 
+
+.content-box-red[
+.big[
+- All **data collection took place online** using a Pscyhopy experiment via Pavlovia.org 
+
+- All tasks were given in a **single session**.
+
+- Task order was **counter-balanced**, and stimulus order within-tasks was **randomized**. 
+]]
+---
+# Word Reading task 
+
+.pull-left[
+.content-box-blue[
+.big[
+- Spanish and English words were produced in isolation.
+
+- /p/, /t/ or /k/ initial words.
+
+- One or two syllables.
+]
+]]
+
+--
+
+.pull-right[
+.content-box-grey[
+- **Word lists**
+ - *Spanish:* tiro, tema, talla, quiso, queja, cama, piso, pena, pato
+ - *English:* tipping, teller, tacky, penny , pass, parrot, kitten, kennel, cabbage
+]]
+
+
+.footnote[
+Word lists were adapted from the lists used in Llama and Cardoso (2018)
+]
+---
+
+background-image: url(./images/ept_example.png)
+background-size: contain
+---
+
+# Shadowing Task 
+
+.pull-left[
+.content-box-grey[
+.large[
+- A French native speaker recorded each word 
+
+- Participants repeated each word
+
+- *French:* tir, terre, tasse, quitte, quelle, pile, pere, patte
+]]]
+--
+
+.pull-right[
+.large[
+- **Tokens for shadowing task**
+ - Produced by a native French speaker
+ - Mean relative VOT = `r mean(stim_df$relative_vot) %>% round(digits = 3)`, sd = `r sd(stim_df$relative_vot) %>% round(digits = 3)`
+]]
+
+---
+
+background-image: url(./images/shadowing_example.png)
+background-size: contain
+
+---
+
+# Data segmentation procedure 
+
+.big[
+- Auto segmented in WebMaus and hand corrected for VOT 
+]
+
+--
+
+.big[
+- VOT was marked at the closest zero-crossing to the onset of visible aspiration and the zero-crossing before before the onset of the vowel.
+]
+
+--
+
+.big[
+- Values were extracted from PRAAT textgrids using the `read_textgrid` function in R. 
+]
+---
+
+background-image: url(./images/segmentation.png)
+background-size: contain
+
+
+---
+
+# Statistical Analysis 
+
+.large[
+- All analyses were carried out in `R`
+]
+
+--
+
+.large[
+- **Sample size justification**: Power analysis of pilot data
+]
+
+--
+
+.large[
+- **Inclusion and subsetting**: T.tests 
+]
+
+--
+
+.large[
+- **Quantify the effect of language on VOT production**: Linear Mixed Effects Model 
+`relative vot ~ language*group + (1 | word) + (1 | participant)`
+]
+
+--
+
+.large[
+- **Determine equivalence**: Test of Equivalence (Lakens, 2017)
+]
+
+---
+
+class: center, middle
+
+# Results
+
+
+---
+background-image: url(./images/comb.png)
+background-size: contain
+
+---
+# Averages per segment full dataset
+
+.pull-left[
+**Mean relative VOT per segment in bilinguals**
+```{r}
+comb_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "k") %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r}
+comb_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "t") %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r}
+comb_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "p") %>% 
+  knitr::kable(digits = 3)
+```
+]
+
+--
+
+.pull-right[
+**Mean relative VOT per segment in monolinguals**
+```{r}
+mono_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "t") %>% 
+  knitr::kable(digits = 3)
+```
+
+```{r}
+mono_df %>% 
+  group_by(language, text) %>% 
+  summarise(`Relative VOT` = mean(relative_vot), `SD` = sd(relative_vot)) %>% 
+  filter(text == "p") %>% 
+  knitr::kable(digits = 3)
+```
+]
+---
+
+# Linear Mixed Effects Model 
+
+.pull-left[
+This model was run to determine how language predicted VOT.
+
+`relative vot ~ language*group + (1 | word) + (1 | participant)`
+
+- Outcome was *relative VOT* (vot/total word duration).
+
+- Fixed effect predictors: *Language* (Spanish, English, French), *group* (monolingual or bilingual) and their interaction.
+
+- Random intercepts: *Word* and *participant*.
+]
+
+--
+
+.pull-right[
+.tiny[
+```{r}
+tab_model(mod_casp)
+```
+]]
+
+---
+
+# English L2 - French L3 TOST
+
+.pull-left[
+```{r, fig.height = 8.5, fig.width = 8}
+
+full_fr_sub <- tidy_df %>% 
+  filter(language == "french")
+full_en_sub <- tidy_df %>% 
+  filter(language == "english")
+
+# TOST to see whether a subset of participants are practically equivalent with
+# eng and french 
+
+TOSTER::TOSTtwo(n1 = length(unique(full_fr_sub$participant)),
+                n2 = length(unique(full_en_sub$participant)), 
+                   m1 = mean(full_en_sub$relative_vot), 
+                   m2 = mean(full_fr_sub$relative_vot), 
+                   sd1 = sd(full_fr_sub$relative_vot), 
+                   sd2 = sd(full_en_sub$relative_vot),
+                   low_eqbound_d = -.4, 
+                   high_eqbound_d = .4)
+```
+]
+
+
+
+---
+
+# Interim Discussion
+
+.large[
+.pull-left[
+- During hand-correction, I noticed many participants produced **target-like** VOT in L3 French, while others **produced long-lag stops**.
+
+- These two trends suggest that the overall observed group trends are the culmination of two specific trends, rather than most participants producing intermediate values.
+
+- As a result, the full bilingual dataset was subset post-hoc into **L1-influence** and **L2-influence** subsets.
+]
+]
+
+--
+
+.large[
+.pull-right[
+- **The data were split based on the results of a t-test per participant** that compared that person's **L3 productions** compared to their **L2 English productions**.
+
+  - **L1-influence subset**: L2 English - L3 French t-test (p < .05)  
+
+  - **L2-influence subset**: L2 English - L3 French (p > .05)
+]
+]
+
+---
+
+class: center, middle
+
+# L1 subset results
+
+---
+
+background-image: url(./images/l1_subset.png)
+background-size: contain
+
+---
+
+# L1 subset: French-Spanish TOST
+
+.pull-left[
+```{r, fig.height = 8.5, fig.width = 8}
+non_l2_subset_df_fr <- l1_df %>% 
+  filter(language == "french")
+non_l2_subset_df_sp <- l1_df %>% 
+  filter(language == "spanish")
+
+TOSTER::TOSTtwo(n1 = length(unique(l1_df$participant)),
+                   n2 = length(unique(l1_df$participant)), 
+                   m1 = mean(non_l2_subset_df_fr$relative_vot), 
+                   m2 = mean(non_l2_subset_df_sp$relative_vot), 
+                   sd1 = sd(non_l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(non_l2_subset_df_sp$relative_vot),
+                   low_eqbound_d = -.4, 
+                   high_eqbound_d = .4)
+
+```
+]
+
+---
+
+# Individual Differences - L1 subset
+
+```{r, fig.height=3, fig.width=6, dpi=300}
+# L1 subset 
+tidy_df %>% 
+  filter(!participant %in% l2_subset) %>% 
+  group_by(participant, language) %>%
+  summarise(vot = mean(relative_vot)) %>% 
+  pivot_wider(names_from = language, values_from = vot) %>% 
+  mutate("sp_fr_diff" = french - spanish,
+         "sp_eng_diff" = english - spanish) %>%  
+  select(participant, sp_eng_diff, sp_fr_diff) %>% 
+  pivot_longer(c(`sp_eng_diff`, `sp_fr_diff`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = as.factor(participant), color = pair)) + geom_jitter() +
+  ggtitle("L1 subset") + geom_vline(xintercept = 0) +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+```
+
+
+---
+
+class: center, middle
+
+# L2 subset results
+
+---
+
+background-image: url(./images/l2_subset.png)
+background-size: contain
+
+---
+
+# L2 subset: French-English TOST
+
+.pull-left[
+```{r, fig.height = 8.5, fig.width = 8}
+l2_subset_df <- l2_df
+l2_subset_df_fr <- l2_subset_df %>% 
+  filter(language == "french")
+l2_subset_df_en <- l2_subset_df %>% 
+  filter(language == "english")
+
+# TOST to see whether a subset of participants are practically equivalent with
+# eng and french 
+
+TOSTER::TOSTtwo(n1 = length(unique(l2_subset_df$participant)),
+                n2 = length(unique(l2_subset_df$participant)), 
+                   m1 = mean(l2_subset_df_fr$relative_vot), 
+                   m2 = mean(l2_subset_df_en$relative_vot), 
+                   sd1 = sd(l2_subset_df_fr$relative_vot), 
+                   sd2 = sd(l2_subset_df_en$relative_vot),
+                   low_eqbound_d = -.4, 
+                   high_eqbound_d = .4)
+```
+]
+
+---
+
+# Individual differences - L2 subset
+
+```{r, fig.height=3, fig.width=6, dpi=300}
+tidy_df <- read.csv(here("data", "tidy", "tidy_df_2.csv"))
+
+tidy_df$participant <- as.factor(tidy_df$participant)
+ 
+temp_4 <- tidy_df %>% 
+  filter(fr_eng_p > .05) %>%  
+  filter(sp_eng_p < .05)
+
+l2_subset <- unique(temp_4$participant)
+
+# L2 subset 
+tidy_df %>% 
+  filter(participant %in% l2_subset) %>% 
+  group_by(participant, language) %>%
+  summarise(vot = mean(relative_vot)) %>% 
+  pivot_wider(names_from = language, values_from = vot) %>% 
+  mutate("English French difference" = english - french,
+         "English Spanish difference" = english - spanish) %>%  
+  select(participant, `English French difference`, `English Spanish difference`) %>% 
+  pivot_longer(c(`English French difference`, `English Spanish difference`), names_to = "pair", values_to = "difference") %>% 
+  ggplot(aes(x = difference, y = as.factor(participant), color = pair)) + geom_point() +
+  ggtitle("L2 subset") + geom_vline(xintercept = 0) +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
+  geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+```
+
+---
+
+
+class: center, middle
+
+# Discussion and Conclusion
+
+
+---
+
+# Discussion and Conclusions  
+
+.big[
+.pull-left[
+.content-box-red[
+**RQ1**: Will bilingual participants produce words in a new language closer to their own productions in their first or second language?
+
+**RQ2**: Will differences in novel-language word production between bilingual and monolingual groups be seen?
+]]]
+
+--
+
+.big[
+.pull-right[
+.content-box-blue[
+**H1**: L3 production will resemble L2 production (longer VOT)
+
+**H2**: Monolingual French production will resemble Spanish and Bilingual French production will resemble English
+]]]
+
+
+
+---
+
+# Discussion and Conclusions  
+
+.pull-left[
+.full-width[
+.content-box-red[
+**Is L3A another case of L2A?**
+
+- Monolinguals and bilinguals were different.  
+
+- If participants are trilinguals performing a task in a new or learned language, one should keep in mind that the CLI from both previously learned languages might be a possible influence. 
+
+**Does the L1 or L2 impact the L3?**
+
+- Both seem to at the group level.
+
+- Individual trends exist in the data.
+
+]]]
+
+--
+
+.pull-right[
+.full-width[
+.content-box-red[
+**Conclusion and Future directions**
+
+- Overall, L3 French fell between L1 Spanish and L2 English relative VOT values.
+
+- There was variation in the results
+
+- My research contributes to L3A in that it shows that individual differences may play an important role is predicting CLI
+
+- Future and ongoing projects aim to explore which factors might be associated with this variation 
+ - PSTM
+ - Mood/energy
+]]]
+
+---
+
+
+class: center, middle
+
+# Thank you!
+
+

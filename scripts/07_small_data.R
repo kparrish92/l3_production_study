@@ -106,7 +106,5 @@ dis_df <- read.csv(here("data", "tidy", "dis_df.csv"))
 
 mono_data <- read.csv(here("data", "tidy", "mono_df.csv"))
 
-mono_df <- mono_data %>% 
-  group_by(language) %>% 
-  summarise(mean = mean(relative_vot), sd = sd(relative_vot))
+
 
