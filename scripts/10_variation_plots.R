@@ -9,6 +9,22 @@ all_df <- rbind(l1_df, l2_df)
 
 
 all_df %>% 
+  group_by(text, language) %>% 
+  summarize(mean_vot = mean(vot),
+            sd_vot = sd(vot),
+            min_vot = min(vot),
+            max_vot = max(vot))
+
+# Fit model to get credible interval for plotting
+lextale_mod <- brm(
+  score ~ 1, data = lextale_scored_data, 
+  control = list(adapt_delta = 0.99, max_treedepth = 15), 
+  warmup = 1000, iter = 2000, chains = 4, cores = 4, 
+  prior = lex_priors, 
+  file = here("data", "models", "mod_lextale")
+)
+
+all_df %>% 
   ggplot(aes(x = vot, fill = language)) + geom_density(alpha = .5)
 
 all_df %>% 

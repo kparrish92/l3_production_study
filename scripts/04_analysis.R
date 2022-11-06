@@ -377,3 +377,8 @@ mod2 %>%
  # write_rds(here("data", "models", "l1_sub_model.RDS"))
 
 
+
+mod0 <- lmer(relative_vot_z ~ language + (1 | word), data = eligible_df)
+summary(mod0)
+
+

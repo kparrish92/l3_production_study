@@ -19,6 +19,16 @@ model1 <- lmer(relative_vot_z ~ language  + (language | participant) + (1 | word
 model2 <- lmer(relative_vot_z ~ language + text + (language | participant) + (1 | word), data = all_df)
 model3 <- lmer(relative_vot_z ~ language*text + (language | participant) + (1 | word), data = all_df)
 
+
+model1 <- lmer(relative_vot_z ~ language + (language | participant), data = all_df)
+
+library(sjPlot)
+
+plot_model(model1)
+
+plot_model(model1, type = "re")
+
+
 # assign to object
 nested_full <- anova(int_model, model1, model2, model3) 
 # save output
