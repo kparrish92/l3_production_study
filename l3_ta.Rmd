@@ -1,0 +1,242 @@
+---
+title       : 'Teaching Multilingual Learners'
+subtitle    : 'TA Training'
+author      : "Kyle Parrish"
+date    : "Rutgers University</br>Spring 2023</br>Última actualización: `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: assets
+    css: ["hygge", "rutgers", "rutgers-fonts"]
+    chakra: "https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"
+    nature:
+      beforeInit: ["https://www.jvcasillas.com/ru_xaringan/js/ru_xaringan.js"]
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      in_header: "./assets/partials/header.html"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r eval=FALSE, echo=FALSE}
+rmarkdown::render("./static/slides/01_introduccion/index.Rmd")
+xaringan::inf_mr()
+```
+
+
+class: title-slide-section-grey, middle
+
+# .white[It's a multilingual world]
+
+---
+
+# Teaching multilinguals
+
+###  The are **more bilingual or multilingual people** in the world than monolinguals.
+
+--
+
+.large[
+Yet, much of the literature and practices in research conflate L2 and L3 learning. 
+] 
+--
+
+.large[
+<ru-blockquote>
+**Native speaker comparison groups**: many studies assume that recruiting a native-speaking group, rather than a monolingual one, does not result in meaningful differences in a given experiment.  
+</ru-blockquote>
+]
+
+--
+
+.large[
+<ru-blockquote>
+**Perceptual assimilation model**: "...the learning of new sound contrasts is predicted by **native** phonological categories." - It is implied that second language categories do not impact the perception of new sounds. Thus, monolinguals and bilinguals would be predicted to act the same if they have the same first language.
+</ru-blockquote>
+]
+
+---
+
+class: title-slide-section-grey, middle
+
+# .white[What's the problem, Kyle?]
+
+---
+
+# Teaching multilinguals
+
+### There is evidence that multilingual language development (such as L3 learners) may be distinct from L2 acquisition in important ways.
+
+.pull-left[
+.content-box-blue[
+.large[
+If language teaching is informed by language development, then we should consider what L3 research can tell us about teaching language.
+]]]
+
+--
+
+.pull-right[
+.content-box-blue[
+.large[
+There are at least two major focal points I will cover in our time today
+]]]
+---
+
+class: title-slide-section, middle
+
+# L2 Status Effects 
+
+---
+
+# L2 Status Effects 
+
+.pull-left[
+.content-box-red[
+.large[
+- **L2 Status** refers to the over-application of second-language rules/categories to a newly learned language.
+
+- This stands in contrast to the dominant native-language view. 
+]]]
+
+--
+
+.pull-right[
+.content-box-blue[
+#### Evidence
+- Bardel and Falk (2007) provided evidence that the L2 impacts L3 learning of V2 syntax using Germanic languages
+
+*Group 1*: L1 Non-V2 Language/L2 V2 Language/L3 V2 Language
+
+*Group 2*: L1 V2 Language/L2 Non-V2 Language/L3 V2 Language
+
+Group 2 - L2 **blocked access** to the L1
+
+Group 1: target like L3 word order
+Group 2: L2 and non-target like L3 word order
+]]
+
+---
+
+class: title-slide-section, middle
+
+# The baseline for L3 learners may be different
+
+---
+
+# The baseline for L3 learners may be different
+
+### An example using VOT 
+.large[
+<ru-blockquote>
+**Voice Onset Time**: An acoustic correlate of stop consonants measured in milliseconds.
+</ru-blockquote>
+]
+
+--
+
+.large[
+<ru-blockquote>
+**Spanish and English VOT are distinct**: English stop consonants are longer in durtion and aspirated voiceless /ptk/.
+</ru-blockquote>
+]
+
+---
+background-image: url(./assets/img/vot_ex.png)
+background-size: contain
+
+---
+
+# The baseline for L3 learners may be different
+
+.pull-left[
+.content-box-blue[
+- I conducted a study to test how Spanish-English bilinguals pronounce French (Spanish-like VOT) words at first exposure.  
+
+- Pronounced words beginning in /p/, /t/ or /k/ in all three languages.
+
+- The results showed that some participants effectively produce French at first exposure, while others are more impacted by their second language English
+]]
+
+---
+
+background-image: url(./assets/img/color.png)
+background-size: contain
+
+---
+
+background-image: url(./assets/img/sub_l_two.png)
+background-size: contain
+
+---
+
+background-image: url(./assets/img/sub_native.png)
+background-size: contain
+
+---
+
+class: title-slide-section, middle
+
+# What can we do about it?
+
+
+---
+# Teaching multilinguals
+
+### What can we do about it?
+
+.pull-left[
+.content-box-blue[
+.large[
+- L2 Status 
+]]]
+
+--
+
+.pull-right[
+.content-box-blue[
+.large[
+- Encourage and promote metalinguistic awareness 
+ - People with higher metalinguistic awareness better overcame L2 Status effects (Falk et al., 2015). 
+]]]
+ 
+---
+
+# Teaching multilinguals
+
+.pull-left[
+.content-box-blue[
+.large[
+- There are differences in access to the L1 and L2 and they vary by segment 
+]]]
+
+--
+
+.pull-right[
+.content-box-blue[
+.large[
+- Don't assume a one-size fits all approach: some learners need more help than others
+]]]
+
+---
+
+# Wrapping up 
+
+.large[
+- L3 learners are more common than we think 
+]
+
+--
+
+.large[
+- These learners have unique needs compared to L2 learners, since both languages can help or hinder their new-language development.
+]
+
+--
+
+.large[
+- Promote awareness of cross-linguistic differences, rather than purely implicit learning and teaching. 
+]
