@@ -585,6 +585,9 @@ tidy_df %>%
   ggtitle("L2 subset") + geom_vline(xintercept = 0) +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+
+
+ggsave(here("L2_sub.png"))
 ```
 
 ---
@@ -657,6 +660,9 @@ tidy_df %>%
   ggtitle("L1 subset") + geom_vline(xintercept = 0) +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*.4, linetype = "dashed") +
   geom_vline(xintercept = sd(tidy_df$relative_vot)*-.4, linetype = "dashed")
+
+
+ggsave(here("L1_sub.png"))
 ```
 
 ---
